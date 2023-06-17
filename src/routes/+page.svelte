@@ -86,7 +86,7 @@
         const animate = () => {
             renderer.setClearColor(0xffffff, 0);
             renderer.render(scene, camera);
-            Globe.rotateY(-0.0025);
+            Globe.rotateY(-0.0005);
             requestAnimationFrame(animate);
         };
 
@@ -110,8 +110,8 @@
 
         gsap.to(camera.position, {
             duration: 1,
-            y: 100,
-            z: 0,
+            y: 110,
+            z: 60,
             ease: "power2.out",
             scrollTrigger: {
                 trigger: "#home",
@@ -126,6 +126,7 @@
         gsap.to("#stats", {
             display: "block",
             opacity: 1,
+            y: 10,
             ease: "power2.out",
             scrollTrigger: {
                 trigger: "#home",
@@ -146,17 +147,19 @@
     />
 </svelte:head>
 
-<section class="pt-[13.5rem] text-center relative h-screen" id="home">
+<section class="pt-40 md:pt-[13.5rem] text-center relative h-screen" id="home">
     <div>
-        <h1 class="text-[5.25rem] text-white font-bold mb-2">
+        <h1
+            class="text-5xl sm:text-6xl md:text-[5.25rem] text-white font-bold mb-6"
+        >
             World Affairs Conference
         </h1>
-        <h3 class="text-zinc-400 text-[1.3rem] mb-10">
+        <h3 class="text-zinc-400 text-lg md:text-[1.3rem] mb-10 lg:px-40">
             North America's largest and Canada's oldest annual student-run
             current events conference.
         </h3>
         <button
-            class="bg-gradient-to-r from-primary to-secondary rounded-full px-12 py-4 text-white"
+            class="bg-gradient-to-r from-primary to-secondary rounded-full px-12 py-3.5 text-white"
         >
             Some Action
         </button>
@@ -166,10 +169,10 @@
         id="test"
     >
         <div
-            class="text-5xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 hidden transition-opacity text-white"
+            class="text-5xl absolute top-1/3 left-1/2 transform -translate-x-1/2 opacity-0 hidden transition-opacity text-white"
             id="stats"
         >
-            100 STUDENTS
+            Some Statistic
         </div>
         <canvas bind:this={canvasElement} />
     </div>
