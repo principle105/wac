@@ -23,6 +23,8 @@
             .bumpImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-topology.png"
             );
+        // Rotate the globe on the diagonal axis
+        Globe.rotateY(Math.PI / 2);
 
         // Custom globe material
         const globeMaterial = Globe.globeMaterial() as THREE.MeshPhongMaterial;
@@ -83,6 +85,7 @@
 
         let renderer: THREE.WebGLRenderer;
 
+        // Render loop
         const animate = () => {
             renderer.setClearColor(0xffffff, 0);
             renderer.render(scene, camera);
@@ -90,6 +93,7 @@
             requestAnimationFrame(animate);
         };
 
+        // Handles resizing the window
         const resize = () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -108,6 +112,7 @@
         window.addEventListener("resize", resize);
         createScene();
 
+        // Zooms into the globe
         gsap.to(camera.position, {
             duration: 1,
             y: 110,
@@ -123,6 +128,7 @@
             },
         });
 
+        // Reveals the statistics
         gsap.to("#stats", {
             display: "block",
             opacity: 1,
@@ -147,19 +153,24 @@
     />
 </svelte:head>
 
-<section class="pt-40 md:pt-[13.5rem] text-center relative h-screen" id="home">
+<section
+    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative h-screen"
+    id="home"
+>
     <div>
         <h1
-            class="text-5xl sm:text-6xl md:text-[5.25rem] text-white font-bold mb-6"
+            class="text-5xl sm:text-6xl md:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
         >
             World Affairs Conference
         </h1>
-        <h3 class="text-zinc-400 text-lg md:text-[1.3rem] mb-10 lg:px-40">
+        <h3
+            class="text-zinc-400 text-md md:text-[1.3rem] mb-8 lg:mb-10 lg:px-40"
+        >
             North America's largest and Canada's oldest annual student-run
             current events conference.
         </h3>
         <button
-            class="bg-gradient-to-r from-primary to-secondary rounded-full px-12 py-3.5 text-white"
+            class="bg-gradient-to-r from-primary to-secondary rounded-full px-10 lg:px-12 py-3.5 text-white text-xs lg:text-base"
         >
             Some Action
         </button>
@@ -169,7 +180,7 @@
         id="test"
     >
         <div
-            class="text-5xl absolute top-1/3 left-1/2 transform -translate-x-1/2 opacity-0 hidden transition-opacity text-white"
+            class="text-5xl absolute top-[36%] left-1/2 transform -translate-x-1/2 opacity-0 hidden transition-opacity text-white"
             id="stats"
         >
             Some Statistic
