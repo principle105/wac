@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <svelte:head>
     <title>World Affairs Conference | FAQ</title>
     <meta
