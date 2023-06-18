@@ -16,7 +16,7 @@
 
     onMount(() => {
         // Initializing the globe
-        const Globe = new ThreeGlobe()
+        const Globe = new ThreeGlobe({ animateIn: false })
             .globeImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
             )
@@ -34,8 +34,8 @@
             "//unpkg.com/three-globe/example/img/earth-water.png",
             (texture) => {
                 globeMaterial.specularMap = texture;
-                globeMaterial.specular = new THREE.Color("grey");
-                globeMaterial.shininess = 100;
+                // globeMaterial.specular = new THREE.Color("grey");
+                // globeMaterial.shininess = 100;
             }
         );
 
@@ -112,21 +112,30 @@
         window.addEventListener("resize", resize);
         createScene();
 
-        // Zooms into the globe
-        gsap.to(camera.position, {
-            duration: 1,
-            y: 110,
-            z: 60,
-            ease: "power2.out",
+        gsap.timeline({
             scrollTrigger: {
                 trigger: "#home",
                 start: "top top",
-                end: "bottom+=1000 center",
+                end: "bottom+=3000 center",
                 pin: "#test",
                 scrub: true,
                 // markers: true,
             },
-        });
+        })
+            .to(camera.position, {
+                duration: 1,
+                y: 110,
+                z: 60,
+                ease: "power2.out",
+            })
+            // Make the globe zoom out and position to the left side of the screen
+            .to(camera.position, {
+                duration: 1,
+                x: 100,
+                y: 10,
+                z: 300,
+                ease: "power2.out",
+            });
 
         // Reveals the statistics
         gsap.to("#stats", {
@@ -134,10 +143,27 @@
             opacity: 1,
             y: 10,
             ease: "power2.out",
+            yoyo: true,
+            repeat: 1,
+            duration: 1,
             scrollTrigger: {
                 trigger: "#home",
                 start: "top+=900 center",
-                end: "top+=1200 center",
+                end: "top+=1950 center",
+                scrub: true,
+                // markers: true,
+            },
+        });
+
+        gsap.to("#text", {
+            display: "block",
+            opacity: 1,
+            y: 10,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#home",
+                start: "top+=3000 center",
+                end: "top+=3300 center",
                 scrub: true,
                 // markers: true,
             },
@@ -154,7 +180,7 @@
 </svelte:head>
 
 <section
-    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative h-screen"
+    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative"
     id="home"
 >
     <div>
@@ -180,10 +206,61 @@
         id="test"
     >
         <div
-            class="text-5xl absolute top-[36%] left-1/2 transform -translate-x-1/2 opacity-0 hidden transition-opacity text-white"
+            class="absolute top-1/3 w-full sm:top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-[40%] opacity-0 hidden transition-opacity"
             id="stats"
         >
-            Some Statistic
+            <h3 class="text-xl md:text-2xl text-white mb-10">
+                WAC has reached:
+            </h3>
+            <dl
+                class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white"
+            >
+                <div class="flex flex-col items-center justify-center">
+                    <dt
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                    >
+                        10k+
+                    </dt>
+                    <dd class="font-light text-gray-500 dark:text-gray-400">
+                        students
+                    </dd>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <dt
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                    >
+                        35+
+                    </dt>
+                    <dd class="font-light text-gray-500 dark:text-gray-400">
+                        countries
+                    </dd>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <dt
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                    >
+                        80+
+                    </dt>
+                    <dd class="font-light text-gray-500 dark:text-gray-400">
+                        schools
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+        <div
+            class="absolute top-1/4 w-5/12 right-0 transform opacity-0 hidden transition-opacity"
+            id="text"
+        >
+            <p class="text-lg text-white">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
+                praesentium ducimus optio voluptates excepturi! Dolore,
+                dignissimos ipsa magni ullam vel quis excepturi iste ducimus
+                laboriosam adipisci, optio atque ipsam pariatur maiores mollitia
+                amet voluptate? Repellendus neque aut recusandae odit, unde eius
+                numquam quas exercitationem, hic mollitia consectetur aperiam et
+                facere?
+            </p>
         </div>
         <canvas bind:this={canvasElement} />
     </div>
