@@ -22,7 +22,10 @@
             )
             .bumpImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-topology.png"
-            );
+            )
+            .atmosphereColor("rgba(82, 167, 220, 1)")
+            .atmosphereAltitude(0.12);
+
         // Rotate the globe on the diagonal axis
         Globe.rotateY(Math.PI / 2);
 
@@ -56,10 +59,8 @@
         scene.add(camera);
 
         // Lighting
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        directionalLight.position.set(1, 1, 1);
         scene.add(new THREE.AmbientLight(0xcccccc));
-        scene.add(directionalLight);
+        scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
 
         // Stars
         const starsGeometry = new THREE.BufferGeometry();
@@ -213,7 +214,7 @@
                 WAC has reached:
             </h3>
             <dl
-                class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white"
+                class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-"
             >
                 <div class="flex flex-col items-center justify-center">
                     <dt
@@ -221,9 +222,7 @@
                     >
                         10k+
                     </dt>
-                    <dd class="font-light text-gray-500 dark:text-gray-400">
-                        students
-                    </dd>
+                    <dd class="font-light text-gray-400">students</dd>
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <dt
@@ -231,9 +230,7 @@
                     >
                         35+
                     </dt>
-                    <dd class="font-light text-gray-500 dark:text-gray-400">
-                        countries
-                    </dd>
+                    <dd class="font-light text-gray-400">countries</dd>
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <dt
@@ -241,9 +238,7 @@
                     >
                         80+
                     </dt>
-                    <dd class="font-light text-gray-500 dark:text-gray-400">
-                        schools
-                    </dd>
+                    <dd class="font-light text-gray-400">schools</dd>
                 </div>
             </dl>
         </div>
