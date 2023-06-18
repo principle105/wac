@@ -217,7 +217,7 @@
             >
                 <div class="flex flex-col items-center justify-center">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
                     >
                         10k+
                     </dt>
@@ -227,7 +227,7 @@
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
                     >
                         35+
                     </dt>
@@ -237,7 +237,7 @@
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
                     >
                         80+
                     </dt>
