@@ -7,8 +7,20 @@
     import ScrollTrigger from "gsap/ScrollTrigger";
 
     // Constants
-    const SPREAD = 700; // How spread out the stars are
-    const TOTAL_STARS = 1500; // How many stars there are
+    const SPREAD: number = 700; // How spread out the stars are
+    const TOTAL_STARS: number = 1500; // How many stars there are
+
+    const featuredSpeakers: string[] = [
+        "Martin Luther King III",
+        "Edward Snowden",
+        "Ck Hoffler",
+        "Scott Galloway",
+        "Marc Garneau",
+        "Mehdi Hasan",
+        "John Stackhouse",
+        "David Owen",
+        "Dr Geoffrey Hinton",
+    ];
 
     let canvasElement: HTMLCanvasElement;
 
@@ -16,6 +28,8 @@
 
     onMount(() => {
         // Initializing the globe
+
+        // Make the atmosphere stronger
         const Globe = new ThreeGlobe({ animateIn: false })
             .globeImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
@@ -38,7 +52,7 @@
             (texture) => {
                 globeMaterial.specularMap = texture;
                 // globeMaterial.specular = new THREE.Color("grey");
-                // globeMaterial.shininess = 100;
+                // globeMaterial.shininess = 0;
             }
         );
 
@@ -59,8 +73,10 @@
         scene.add(camera);
 
         // Lighting
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+        directionalLight.position.set(1, 1, 1);
         scene.add(new THREE.AmbientLight(0xcccccc));
-        scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
+        scene.add(directionalLight);
 
         // Stars
         const starsGeometry = new THREE.BufferGeometry();
@@ -113,13 +129,15 @@
         window.addEventListener("resize", resize);
         createScene();
 
+        // Timeline for camera movement
         gsap.timeline({
             scrollTrigger: {
                 trigger: "#home",
                 start: "top top",
-                end: "bottom+=3000 center",
-                pin: "#test",
+                end: "bottom+=7000 center",
+                pin: "#container",
                 scrub: true,
+                pinSpacing: true, // Fixes ScrollTrigger not working with flexbox
                 // markers: true,
             },
         })
@@ -132,42 +150,63 @@
             // Make the globe zoom out and position to the left side of the screen
             .to(camera.position, {
                 duration: 1,
-                x: 100,
+                x: 110,
                 y: 10,
                 z: 300,
                 ease: "power2.out",
+                delay: 0.25,
+            })
+            .to(camera.position, {
+                delay: 2,
             });
 
-        // Reveals the statistics
-        gsap.to("#stats", {
-            display: "block",
-            opacity: 1,
-            y: 10,
-            ease: "power2.out",
-            yoyo: true,
-            repeat: 1,
-            duration: 1,
+        const textTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: "#home",
                 start: "top+=900 center",
-                end: "top+=1950 center",
+                end: "top+=2100 center",
                 scrub: true,
                 // markers: true,
             },
         });
 
-        gsap.to("#text", {
-            display: "block",
-            opacity: 1,
-            y: 10,
-            ease: "power2.out",
+        // Reveals the statistics
+        textTimeline
+            .to("#stats", {
+                opacity: 1,
+                y: 10,
+                duration: 4,
+                display: "block",
+            })
+            .to("#stats", {
+                opacity: 0,
+                duration: 1,
+                y: -10,
+                display: "hidden",
+                delay: 5,
+            });
+
+        const speakerTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: "#home",
-                start: "top+=3000 center",
-                end: "top+=3300 center",
+                trigger: "#stats",
+                start: "top+=2900 center",
+                end: "top+=6500 center",
                 scrub: true,
                 // markers: true,
             },
+        });
+
+        speakerTimeline.to("#speakers", {
+            display: "flex",
+        });
+
+        // Reveals the featured speakers
+        featuredSpeakers.forEach((_, index) => {
+            speakerTimeline.to("#speaker-" + index, {
+                opacity: 1,
+                y: 10,
+                ease: "power2.out",
+            });
         });
     });
 </script>
@@ -181,81 +220,107 @@
 </svelte:head>
 
 <section
-    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative"
+    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative flex flex-col items-center"
     id="home"
 >
-    <div>
-        <h1
-            class="text-5xl sm:text-6xl md:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
-        >
-            World Affairs Conference
-        </h1>
-        <h3
-            class="text-zinc-400 text-md md:text-[1.3rem] mb-8 lg:mb-10 lg:px-40"
-        >
-            North America's largest and Canada's oldest annual student-run
-            current events conference.
-        </h3>
+    <h1
+        class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
+    >
+        World Affairs Conference
+    </h1>
+    <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-40">
+        North America's largest and Canada's oldest annual student-run current
+        events conference.
+    </h3>
+
+    <div class="flex gap-4 mb-6 text-xl lg:text-2xl">
+        <span class="text-primary">#BeThere</span>
+        <span class="text-secondary">#RollWAC</span>
+    </div>
+
+    <div class="flex gap-1.5 flex-col sm:flex-row">
+        <div class="relative">
+            <div
+                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+                <svg
+                    aria-hidden="true"
+                    class="w-5 h-5 text-zinc-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                    />
+                    <path
+                        d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                    />
+                </svg>
+            </div>
+            <input
+                type="text"
+                class="border text-sm rounded-lg block w-56 md:w-80 pl-10 p-2.5 bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-zinc-400 focus:border-zinc-400 outline-none"
+                placeholder="name@school.com"
+            />
+        </div>
         <button
-            class="bg-gradient-to-r from-primary to-secondary rounded-full px-10 lg:px-12 py-3.5 text-white text-xs lg:text-base"
+            class="bg-gradient-to-r from-primary to-secondary rounded-lg px-6 py-2 text-white text-sm"
         >
-            Some Action
+            Get Notified
         </button>
     </div>
+
     <div
-        class="absolute w-full h-full flex justify-center top-0 -z-50"
-        id="test"
+        class="absolute w-full h-screen flex justify-center top-0 -z-50"
+        id="container"
     >
         <div
-            class="absolute top-1/3 w-full sm:top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-[40%] opacity-0 hidden transition-opacity"
+            class="absolute top-[20%] sm:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-[20%] sm:-translate-y-1/4 w-full opacity-0 hidden transition-opacity"
             id="stats"
         >
-            <h3 class="text-xl md:text-2xl text-white mb-10">
+            <h3 class="text-lg sm:text-xl md:text-2xl text-white mb-10">
                 WAC has reached:
             </h3>
             <dl
-                class="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-"
+                class="max-w-screen-md gap-8 mx-auto text-white flex justify-between flex-wrap text-center [&>*]:mx-auto"
             >
-                <div class="flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center justify-center mx-auto">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
                     >
                         10k+
                     </dt>
-                    <dd class="font-light text-gray-400">students</dd>
+                    <dd class="text-zinc-400">students</dd>
                 </div>
-                <div class="flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center justify-center mx-auto">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
                     >
                         35+
                     </dt>
-                    <dd class="font-light text-gray-400">countries</dd>
+                    <dd class="text-zinc-400">countries</dd>
                 </div>
-                <div class="flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center justify-center mx-auto">
                     <dt
-                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-extrabold text-white"
+                        class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
                     >
                         80+
                     </dt>
-                    <dd class="font-light text-gray-400">schools</dd>
+                    <dd class="text-zinc-400">schools</dd>
                 </div>
             </dl>
         </div>
 
         <div
-            class="absolute top-1/4 w-5/12 right-0 transform opacity-0 hidden transition-opacity"
-            id="text"
+            class="absolute top-1/2 transform -translate-y-1/2 right-0 hidden flex-col gap-4 text-zinc-200 text-3xl md:text-5xl font-light"
+            id="speakers"
         >
-            <p class="text-lg text-white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
-                praesentium ducimus optio voluptates excepturi! Dolore,
-                dignissimos ipsa magni ullam vel quis excepturi iste ducimus
-                laboriosam adipisci, optio atque ipsam pariatur maiores mollitia
-                amet voluptate? Repellendus neque aut recusandae odit, unde eius
-                numquam quas exercitationem, hic mollitia consectetur aperiam et
-                facere?
-            </p>
+            {#each featuredSpeakers as speaker, index}
+                <h3 id="speaker-{index}" class="opacity-0 transition-opacity">
+                    {speaker}
+                </h3>
+            {/each}
         </div>
         <canvas bind:this={canvasElement} />
     </div>
