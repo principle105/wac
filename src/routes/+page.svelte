@@ -10,17 +10,17 @@
     const SPREAD: number = 700; // How spread out the stars are
     const TOTAL_STARS: number = 1500; // How many stars there are
 
-    const featuredSpeakers: string[] = [
-        "Martin Luther King III",
-        "Edward Snowden",
-        "Ck Hoffler",
-        "Scott Galloway",
-        "Marc Garneau",
-        "Mehdi Hasan",
-        "John Stackhouse",
-        "David Owen",
-        "Dr Geoffrey Hinton",
-    ];
+    const featuredSpeakers: { [key: string]: string } = {
+        "Martin Luther King III": "Some title that is important",
+        "Edward Snowden": "Some title that is important",
+        "Ck Hoffler": "Some title that is important",
+        "Scott Galloway": "Some title that is important",
+        "Marc Garneau": "Some title that is important",
+        "Mehdi Hasan": "Some title that is important",
+        "John Stackhouse": "Some title that is important",
+        "David Owen": "Some title that is important",
+        "Dr Geoffrey Hinton": "Some title that is important",
+    };
 
     let canvasElement: HTMLCanvasElement;
 
@@ -31,9 +31,7 @@
 
         // Make the atmosphere stronger
         const Globe = new ThreeGlobe({ animateIn: false })
-            .globeImageUrl(
-                "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-            )
+            .globeImageUrl("//i.imgur.com/5bEEM5o.jpg")
             .bumpImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-topology.png"
             )
@@ -201,7 +199,7 @@
         });
 
         // Reveals the featured speakers
-        featuredSpeakers.forEach((_, index) => {
+        Object.keys(featuredSpeakers).forEach((_, index) => {
             speakerTimeline.to("#speaker-" + index, {
                 opacity: 1,
                 y: 10,
@@ -220,7 +218,7 @@
 </svelte:head>
 
 <section
-    class="pt-[10.5rem] md:pt-44 lg:pt-[13.5rem] text-center relative flex flex-col items-center"
+    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center relative flex flex-col items-center"
     id="home"
 >
     <h1
@@ -228,7 +226,7 @@
     >
         World Affairs Conference
     </h1>
-    <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-40">
+    <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
         North America's largest and Canada's oldest annual student-run current
         events conference.
     </h3>
@@ -313,13 +311,18 @@
         </div>
 
         <div
-            class="absolute top-1/2 transform -translate-y-1/2 right-0 hidden flex-col gap-4 text-zinc-200 text-3xl md:text-5xl font-light"
+            class="absolute top-1/2 transform -translate-y-1/2 right-0 hidden flex-col gap-4 text-left"
             id="speakers"
         >
-            {#each featuredSpeakers as speaker, index}
-                <h3 id="speaker-{index}" class="opacity-0 transition-opacity">
-                    {speaker}
-                </h3>
+            {#each Object.keys(featuredSpeakers) as speaker, index}
+                <div id="speaker-{index}" class="opacity-0 transition-opacity">
+                    <h3 class="text-white text-3xl md:text-4xl font-light">
+                        {speaker}
+                    </h3>
+                    <p class="text-zinc-400 text-xs">
+                        {featuredSpeakers[speaker]}
+                    </p>
+                </div>
             {/each}
         </div>
         <canvas bind:this={canvasElement} />
