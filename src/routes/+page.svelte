@@ -31,7 +31,7 @@
 
         // Make the atmosphere stronger
         const Globe = new ThreeGlobe({ animateIn: false })
-            .globeImageUrl("//i.imgur.com/5bEEM5o.jpg")
+            .globeImageUrl("//i.imgur.com/QImS5pP.jpg")
             .bumpImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-topology.png"
             )
