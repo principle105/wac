@@ -6,21 +6,76 @@
     import gsap from "gsap";
     import ScrollTrigger from "gsap/ScrollTrigger";
 
+    // Importing the speaker images
+    import mlk from "$lib/speakers/mlk.jpg";
+    import edwardSnowden from "$lib/speakers/edward_snowden.jpg";
+    import ckHoffler from "$lib/speakers/ck_hoffler.jpg";
+    import scottGalloway from "$lib/speakers/scott_galloway.jpg";
+    import marcGarneau from "$lib/speakers/marc_garneau.jpg";
+    import mehdiHasan from "$lib/speakers/mehdi_hasan.jpg";
+    import johnStackhouse from "$lib/speakers/john_stackhouse.jpg";
+    import davidOwen from "$lib/speakers/david_owen.jpg";
+    import geoffreyHinton from "$lib/speakers/geoffrey_hinton.jpg";
+
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
     const TOTAL_STARS: number = 1500; // How many stars there are
 
-    const featuredSpeakers: { [key: string]: string } = {
-        "Martin Luther King III": "Some title that is important",
-        "Edward Snowden": "Some title that is important",
-        "Ck Hoffler": "Some title that is important",
-        "Scott Galloway": "Some title that is important",
-        "Marc Garneau": "Some title that is important",
-        "Mehdi Hasan": "Some title that is important",
-        "John Stackhouse": "Some title that is important",
-        "David Owen": "Some title that is important",
-        "Dr Geoffrey Hinton": "Some title that is important",
-    };
+    interface Speaker {
+        name: string;
+        title: string;
+        image: string;
+        large?: boolean;
+    }
+
+    const speakers: Speaker[] = [
+        {
+            name: "Martin Luther King III",
+            title: "American Human Rights Activist",
+            image: mlk,
+            large: true,
+        },
+        {
+            name: "Edward Snowden",
+            title: "Former NSA Consultant & Whistleblower",
+            image: edwardSnowden,
+        },
+        {
+            name: "Ck Hoffler",
+            title: "CEO of The CK Hoffler Firm",
+            image: ckHoffler,
+        },
+        {
+            name: "Scott Galloway",
+            title: "Professor of Marketing at NYU Stern School of Business",
+            image: scottGalloway,
+        },
+        {
+            name: "Marc Garneau",
+            title: "Former Canadian Astronaut",
+            image: marcGarneau,
+        },
+        {
+            name: "Mehdi Hasan",
+            title: "British-American Political Journalist, Broadcaster and Author",
+            image: mehdiHasan,
+        },
+        {
+            name: "John Stackhouse",
+            title: "Former Editor-in-Chief of The Globe and Mail",
+            image: johnStackhouse,
+        },
+        {
+            name: "David Owen",
+            title: "Former British Foreign Secretary",
+            image: davidOwen,
+        },
+        {
+            name: "Dr Geoffrey Hinton",
+            title: "2018 recipient of the Turing Award for Computer Science",
+            image: geoffreyHinton,
+        },
+    ];
 
     let canvasElement: HTMLCanvasElement;
 
@@ -31,7 +86,7 @@
 
         // Make the atmosphere stronger
         const Globe = new ThreeGlobe({ animateIn: false })
-            .globeImageUrl("//i.imgur.com/QImS5pP.jpg")
+            .globeImageUrl("//i.imgur.com/5bEEM5o.jpg")
             .bumpImageUrl(
                 "//unpkg.com/three-globe/example/img/earth-topology.png"
             )
@@ -50,7 +105,7 @@
             (texture) => {
                 globeMaterial.specularMap = texture;
                 // globeMaterial.specular = new THREE.Color("grey");
-                // globeMaterial.shininess = 0;
+                // globeMaterial.shininess = 20;
             }
         );
 
@@ -148,9 +203,9 @@
             // Make the globe zoom out and position to the left side of the screen
             .to(camera.position, {
                 duration: 1,
-                x: 110,
+                x: 175,
                 y: 10,
-                z: 300,
+                z: 150,
                 ease: "power2.out",
                 delay: 0.25,
             })
@@ -199,7 +254,7 @@
         });
 
         // Reveals the featured speakers
-        Object.keys(featuredSpeakers).forEach((_, index) => {
+        speakers.forEach((_, index) => {
             speakerTimeline.to("#speaker-" + index, {
                 opacity: 1,
                 y: 10,
@@ -309,21 +364,53 @@
                 </div>
             </dl>
         </div>
-
         <div
-            class="absolute top-1/2 transform -translate-y-1/2 right-0 hidden flex-col gap-4 text-left"
+            class="absolute top-12 w-full h-full hidden flex-col gap-4 text-left"
             id="speakers"
         >
-            {#each Object.keys(featuredSpeakers) as speaker, index}
-                <div id="speaker-{index}" class="opacity-0 transition-opacity">
-                    <h3 class="text-white text-3xl md:text-4xl font-light">
-                        {speaker}
-                    </h3>
-                    <p class="text-zinc-400 text-xs">
-                        {featuredSpeakers[speaker]}
-                    </p>
-                </div>
-            {/each}
+            <h2 class="text-center text-5xl font-bold text-white mb-6">
+                Past Speakers
+            </h2>
+
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+                {#each speakers as speaker, index}
+                    <div
+                        id="speaker-{index}"
+                        class="opacity-0 transition-opacity {speaker.large &&
+                            `md:col-span-2 md:row-span-2`}"
+                    >
+                        <div
+                            class="rounded-md h-full relative overflow-hidden {!speaker.large &&
+                                'max-h-52'}"
+                        >
+                            <img
+                                src={speaker.image}
+                                alt="{speaker.name}'s Headshot"
+                                class="w-full rounded-lg h-full object-cover"
+                            />
+
+                            <div
+                                class="absolute bottom-0 w-full p-2 backdrop-blur-md bg-zinc-800/30 rounded-tr-md"
+                            >
+                                <h3
+                                    class="font-semibold text-white {speaker.large
+                                        ? 'text-xl'
+                                        : 'text-sm'}"
+                                >
+                                    {speaker.name}
+                                </h3>
+                                <p
+                                    class="text-zinc-300 {speaker.large
+                                        ? 'text-xs'
+                                        : 'text-[0.6rem]'}"
+                                >
+                                    {speaker.title}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {/each}
+            </div>
         </div>
         <canvas bind:this={canvasElement} />
     </div>

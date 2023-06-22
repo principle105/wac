@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import gsap, { Expo } from "gsap";
     import { page } from "$app/stores";
-    import logo from "$lib/wac_logo.png";
+    import logo from "$lib/logos/wac_large.png";
 
     import "./style.css";
 
@@ -49,10 +49,10 @@
     };
 
     const routes: Route[] = [
-        { name: "Schedule", path: "/schedule" },
-        { name: "Team", path: "/team" },
-        { name: "Past Speakers", path: "/speakers" },
-        { name: "FAQ", path: "/faq" },
+        // { name: "Schedule", path: "/schedule" },
+        // { name: "Team", path: "/team" },
+        // { name: "Past Speakers", path: "/speakers" },
+        // { name: "FAQ", path: "/faq" },
     ];
 </script>
 
@@ -78,11 +78,11 @@
                     </a>
                 </li>{/each}
         </ul>
-        <button
+        <!-- <button
             class="bg-gradient-to-r from-primary to-secondary rounded-full px-10 lg:px-12 py-3 text-white text-xs lg:text-base"
         >
             Login
-        </button>
+        </button> -->
         <button
             class="block lg:hidden z-50"
             bind:this={toggle}
