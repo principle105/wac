@@ -365,24 +365,21 @@
             </dl>
         </div>
         <div
-            class="absolute top-12 w-full h-full hidden flex-col gap-4 text-left"
+            class="absolute w-full h-screen hidden text-left gap-6 flex-col"
             id="speakers"
         >
-            <h2 class="text-center text-5xl font-bold text-white mb-6">
+            <h2 class="text-center text-5xl font-bold text-white mt-10">
                 Past Speakers
             </h2>
 
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-6 gap-6 auto-rows-fr grow">
                 {#each speakers as speaker, index}
                     <div
                         id="speaker-{index}"
                         class="opacity-0 transition-opacity {speaker.large &&
-                            `md:col-span-2 md:row-span-2`}"
+                            'md:col-span-2 md:row-span-2'}"
                     >
-                        <div
-                            class="rounded-md h-full relative overflow-hidden {!speaker.large &&
-                                'max-h-52'}"
-                        >
+                        <div class="rounded-md h-full relative overflow-hidden">
                             <img
                                 src={speaker.image}
                                 alt="{speaker.name}'s Headshot"
@@ -393,16 +390,14 @@
                                 class="absolute bottom-0 w-full p-2 backdrop-blur-md bg-zinc-800/30 rounded-tr-md"
                             >
                                 <h3
-                                    class="font-semibold text-white {speaker.large
-                                        ? 'text-xl'
-                                        : 'text-sm'}"
+                                    class="font-semibold text-white text-sm {speaker.large &&
+                                        'md:text-xl'}"
                                 >
                                     {speaker.name}
                                 </h3>
                                 <p
-                                    class="text-zinc-300 {speaker.large
-                                        ? 'text-xs'
-                                        : 'text-[0.6rem]'}"
+                                    class="text-zinc-300 text-[0.6rem] {speaker.large &&
+                                        'md:text-xs'}"
                                 >
                                     {speaker.title}
                                 </p>
@@ -411,6 +406,7 @@
                     </div>
                 {/each}
             </div>
+            <div class="mt-6" />
         </div>
         <canvas bind:this={canvasElement} />
     </div>
