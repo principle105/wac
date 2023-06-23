@@ -187,10 +187,9 @@
             scrollTrigger: {
                 trigger: "#home",
                 start: "top top",
-                end: "bottom+=7000 center",
-                pin: "#container",
+                end: "bottom+=13600 center",
+                pin: "#home",
                 scrub: true,
-                pinSpacing: true, // Fixes ScrollTrigger not working with flexbox
                 // markers: true,
             },
         })
@@ -210,12 +209,20 @@
                 delay: 0.25,
             })
             .to(camera.position, {
-                delay: 2,
+                delay: 3,
+            })
+            .to(camera.position, {
+                duration: 3,
+                x: 15,
+                y: 10,
+                z: 150,
+                ease: "power2.out",
+                delay: 0.25,
             });
 
         const textTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: "#home",
+                trigger: "#container",
                 start: "top+=900 center",
                 end: "top+=2100 center",
                 scrub: true,
@@ -243,7 +250,7 @@
             scrollTrigger: {
                 trigger: "#stats",
                 start: "top+=2900 center",
-                end: "top+=6500 center",
+                end: "top+=9000 center",
                 scrub: true,
                 // markers: true,
             },
@@ -262,6 +269,14 @@
                 ease: "power2.out",
             });
         });
+
+        speakerTimeline.to("#speakers", {
+            opacity: 0,
+            duration: 1,
+            y: -10,
+            display: "hidden",
+            delay: 2,
+        });
     });
 </script>
 
@@ -274,18 +289,19 @@
 </svelte:head>
 
 <section
-    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center relative flex flex-col items-center"
-    id="home"
+    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0"
 >
-    <h1
-        class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
-    >
-        World Affairs Conference
-    </h1>
-    <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
-        North America's largest and Canada's oldest annual student-run current
-        events conference.
-    </h3>
+    <div>
+        <h1
+            class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
+        >
+            World Affairs Conference
+        </h1>
+        <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
+            North America's largest and Canada's oldest annual student-run
+            current events conference.
+        </h3>
+    </div>
 
     <div class="flex gap-4 mb-6 text-xl lg:text-2xl">
         <span class="text-primary">#BeThere</span>
@@ -324,7 +340,12 @@
             Get Notified
         </button>
     </div>
+</section>
 
+<section
+    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center relative h-screen"
+    id="home"
+>
     <div
         class="absolute w-full h-screen flex justify-center top-0 -z-50"
         id="container"
@@ -416,3 +437,7 @@
         <canvas bind:this={canvasElement} />
     </div>
 </section>
+
+<section class="w-full h-screen bg-orange-300" />
+<section class="w-full h-screen bg-purple-400" />
+<section class="w-full h-screen bg-green-400" />

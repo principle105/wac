@@ -131,7 +131,7 @@
     <slot />
 </main>
 
-<!-- <footer class="bg-zinc-950" id="footer">
+<footer class="bg-zinc-950" id="footer">
     <div
         class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between"
     >
@@ -148,4 +148,4 @@
             <div>icon 5</div>
         </div>
     </div>
-</footer> -->
+</footer>
