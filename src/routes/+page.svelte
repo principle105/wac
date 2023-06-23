@@ -251,6 +251,7 @@
 
         speakerTimeline.to("#speakers", {
             display: "flex",
+            opacity: 1,
         });
 
         // Reveals the featured speakers
@@ -365,19 +366,23 @@
             </dl>
         </div>
         <div
-            class="absolute w-full h-screen hidden text-left gap-6 flex-col"
+            class="absolute w-full h-screen hidden opacity-0 text-left gap-4 sm:gap-8 flex-col"
             id="speakers"
         >
-            <h2 class="text-center text-5xl font-bold text-white mt-10">
+            <h2
+                class="text-center text-3xl sm:text-5xl font-bold text-white mt-8 sm:mt-14"
+            >
                 Past Speakers
             </h2>
 
-            <div class="grid grid-cols-6 gap-6 auto-rows-fr grow">
+            <div
+                class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 auto-rows-fr grow"
+            >
                 {#each speakers as speaker, index}
                     <div
                         id="speaker-{index}"
-                        class="opacity-0 transition-opacity {speaker.large &&
-                            'md:col-span-2 md:row-span-2'}"
+                        class="opacity-0 transition-opacity col-span-1 row-span-1 {speaker.large &&
+                            'lg:col-span-2 lg:row-span-2'}"
                     >
                         <div class="rounded-md h-full relative overflow-hidden">
                             <img
@@ -387,17 +392,17 @@
                             />
 
                             <div
-                                class="absolute bottom-0 w-full p-2 backdrop-blur-md bg-zinc-800/30 rounded-tr-md"
+                                class="absolute bottom-0 w-full p-2 backdrop-blur-md bg-zinc-800/30 rounded-tr-md hidden sm:block"
                             >
                                 <h3
                                     class="font-semibold text-white text-sm {speaker.large &&
-                                        'md:text-xl'}"
+                                        'lg:text-xl'}"
                                 >
                                     {speaker.name}
                                 </h3>
                                 <p
                                     class="text-zinc-300 text-[0.6rem] {speaker.large &&
-                                        'md:text-xs'}"
+                                        'lg:text-xs'}"
                                 >
                                     {speaker.title}
                                 </p>
