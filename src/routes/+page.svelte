@@ -371,7 +371,7 @@
     id="home"
 >
     <div
-        class="absolute w-full h-screen flex justify-center top-0 -z-50"
+        class="absolute w-full h-screen flex justify-center inset-0 -z-50"
         id="container"
     >
         <div
@@ -465,7 +465,7 @@
 </section>
 
 <section class="w-full h-screen flex flex-col" id="video">
-    <h2 class="text-8xl text-white font-bold">Some Big Title</h2>
+    <h2 class="text-5xl md:text-8xl text-white font-bold">Some Big Title</h2>
     <iframe
         src="https://www.youtube.com/embed/UfDBOA47oN4"
         class="w-full aspect-video my-auto"
@@ -476,8 +476,10 @@
     />
 </section>
 <section class="w-full h-screen">
-    <h2 class="text-8xl text-white font-bold">Some Other Big Title</h2>
+    <h2 class="text-5xl md:text-8xl text-white font-bold">
+        Some Other Big Title
+    </h2>
 </section>
 <section class="w-full h-screen">
-    <h2 class="text-8xl text-white font-bold">Big Titles!!!</h2>
+    <h2 class="text-5xl md:text-8xl text-white font-bold">Big Titles!!!</h2>
 </section>
