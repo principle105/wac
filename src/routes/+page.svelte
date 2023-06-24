@@ -157,14 +157,13 @@
 
         // Render loop
         const animate = () => {
-            renderer.setClearColor(0xffffff, 0);
             renderer.render(scene, camera);
             Globe.rotateY(-0.0005);
             requestAnimationFrame(animate);
         };
 
         // Handles resizing the window
-        const resize = () => {
+        const handleWindowResize = () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -174,12 +173,14 @@
             renderer = new THREE.WebGLRenderer({
                 antialias: true,
                 canvas: canvasElement,
+                alpha: true,
             });
-            resize();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
             animate();
         };
 
-        window.addEventListener("resize", resize);
+        window.addEventListener("resize", handleWindowResize);
         createScene();
 
         // Timeline for camera movement
@@ -313,15 +314,17 @@
 </svelte:head>
 
 <section
-    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0 z-50"
+    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0 z-30"
 >
-    <div>
+    <div class="w-5/6 mx-auto">
         <h1
             class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
         >
             World Affairs Conference
         </h1>
-        <p class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
+        <p
+            class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-32 lg:px-48"
+        >
             North America's largest and Canada's oldest annual student-run
             current events conference.
         </p>

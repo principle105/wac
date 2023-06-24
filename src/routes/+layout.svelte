@@ -76,7 +76,8 @@
                     >
                         {route.name}
                     </a>
-                </li>{/each}
+                </li>
+            {/each}
         </ul>
         <!-- <button
             class="bg-gradient-to-r from-primary to-secondary rounded-full px-10 lg:px-12 py-3 text-white text-xs lg:text-base"
@@ -85,9 +86,9 @@
         </button> -->
         <button
             class="block lg:hidden z-50"
+            aria-label="Toggle navigation"
             bind:this={toggle}
             on:click={toggleNav}
-            aria-label="Toggle navigation"
         >
             <!-- Hamburger menu icon -->
 
