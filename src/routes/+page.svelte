@@ -135,7 +135,7 @@
         const starsGeometry = new THREE.BufferGeometry();
         const starMaterial = new THREE.PointsMaterial({ color: 0xffffff });
 
-        const starVertices = [];
+        const starVertices: Array<number> = [];
 
         for (let i = 0; i < TOTAL_STARS; i++) {
             const x = THREE.MathUtils.randFloatSpread(SPREAD);
@@ -187,7 +187,7 @@
             scrollTrigger: {
                 trigger: "#home",
                 start: "top top",
-                end: "bottom+=13600 center",
+                end: "bottom+=11130 center",
                 pin: "#home",
                 scrub: true,
                 // markers: true,
@@ -199,10 +199,10 @@
                 z: 60,
                 ease: "power2.out",
             })
-            // Make the globe zoom out and position to the left side of the screen
+            // Make the globe zoom in and position to the left side of the screen
             .to(camera.position, {
                 duration: 1,
-                x: 175,
+                x: 125,
                 y: 10,
                 z: 150,
                 ease: "power2.out",
@@ -212,12 +212,11 @@
                 delay: 3,
             })
             .to(camera.position, {
-                duration: 3,
-                x: 15,
-                y: 10,
-                z: 150,
-                ease: "power2.out",
-                delay: 0.25,
+                duration: 1.5,
+                x: 0,
+                y: -75,
+                z: 175,
+                ease: "linear",
             });
 
         const textTimeline = gsap.timeline({
@@ -250,7 +249,7 @@
             scrollTrigger: {
                 trigger: "#stats",
                 start: "top+=2900 center",
-                end: "top+=9000 center",
+                end: "top+=9500 center",
                 scrub: true,
                 // markers: true,
             },
@@ -275,7 +274,32 @@
             duration: 1,
             y: -10,
             display: "hidden",
-            delay: 2,
+            delay: 1,
+        });
+
+        // Removing last 10 items from starVertices array on scrolltrigger on each update (onUpdate)
+
+        gsap.to(starVertices, {
+            scrollTrigger: {
+                trigger: "#video",
+                start: "top-=100% bottom",
+                end: "top bottom",
+                scrub: true,
+                // markers: true,
+                onUpdate: (self) => {
+                    const starsRendered =
+                        starVertices.length -
+                        Math.floor(starVertices.length * self.progress);
+
+                    starsGeometry.setAttribute(
+                        "position",
+                        new THREE.Float32BufferAttribute(
+                            starVertices.slice(0, starsRendered),
+                            3
+                        )
+                    );
+                },
+            },
         });
     });
 </script>
@@ -297,10 +321,10 @@
         >
             World Affairs Conference
         </h1>
-        <h3 class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
+        <p class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-48">
             North America's largest and Canada's oldest annual student-run
             current events conference.
-        </h3>
+        </p>
     </div>
 
     <div class="flex gap-4 mb-6 text-xl lg:text-2xl">
@@ -354,9 +378,9 @@
             class="absolute top-[20%] sm:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-[20%] sm:-translate-y-1/4 w-full opacity-0 hidden transition-opacity"
             id="stats"
         >
-            <h3 class="text-lg sm:text-xl md:text-2xl text-white mb-10">
+            <h2 class="text-lg sm:text-xl md:text-2xl text-white mb-10">
                 WAC has reached:
-            </h3>
+            </h2>
             <dl
                 class="max-w-screen-md gap-8 mx-auto text-white flex justify-between flex-wrap text-center [&>*]:mx-auto"
             >
@@ -413,7 +437,9 @@
                             />
 
                             <div
-                                class="absolute bottom-0 w-full p-2 backdrop-blur-md bg-zinc-800/30 rounded-tr-md hidden sm:block"
+                                class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md hidden sm:block {speaker.large
+                                    ? 'p-3'
+                                    : 'p-2'}"
                             >
                                 <h3
                                     class="font-semibold text-white text-sm {speaker.large &&
@@ -438,6 +464,20 @@
     </div>
 </section>
 
-<section class="w-full h-screen bg-orange-300" />
-<section class="w-full h-screen bg-purple-400" />
-<section class="w-full h-screen bg-green-400" />
+<section class="w-full h-screen flex flex-col" id="video">
+    <h2 class="text-8xl text-white font-bold">Some Big Title</h2>
+    <iframe
+        src="https://www.youtube.com/embed/UfDBOA47oN4"
+        class="w-full aspect-video my-auto"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+    />
+</section>
+<section class="w-full h-screen">
+    <h2 class="text-8xl text-white font-bold">Some Other Big Title</h2>
+</section>
+<section class="w-full h-screen">
+    <h2 class="text-8xl text-white font-bold">Big Titles!!!</h2>
+</section>

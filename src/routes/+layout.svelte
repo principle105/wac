@@ -87,6 +87,7 @@
             class="block lg:hidden z-50"
             bind:this={toggle}
             on:click={toggleNav}
+            aria-label="Toggle navigation"
         >
             <!-- Hamburger menu icon -->
 

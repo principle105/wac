@@ -85,13 +85,14 @@
                         <div
                             class="mb-8 w-full rounded-lg border border-zinc-600 bg-zinc-800 p-3 sm:p-4 md:p-6"
                         >
-                            <button class="flex w-full text-left items-center">
+                            <div class="flex w-full text-left items-center">
                                 <button
                                     class="mr-5 flex h-10 w-full max-w-[2.5rem] items-center justify-center rounded-lg bg-secondary bg-opacity-5"
                                     on:click={() => {
                                         faqStates[faqSectionName][i] =
                                             !faqStates[faqSectionName][i];
                                     }}
+                                    aria-label="Toggle FAQ"
                                 >
                                     <svg
                                         width="17"
@@ -111,7 +112,7 @@
                                         {faq.question}
                                     </h4>
                                 </div>
-                            </button>
+                            </div>
                             <div
                                 class="pl-[62px] {!faqStates[faqSectionName][
                                     i
