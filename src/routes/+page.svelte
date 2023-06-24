@@ -313,7 +313,7 @@
 </svelte:head>
 
 <section
-    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0"
+    class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0 z-50"
 >
     <div>
         <h1
