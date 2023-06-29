@@ -4,7 +4,7 @@
     import ThreeGlobe from "three-globe";
 
     import gsap from "gsap";
-    import { ScrollToPlugin, ScrollTrigger, Draggable } from "gsap/all";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
 
     import { Swiper, SwiperSlide } from "swiper/svelte";
     import "swiper/css";
@@ -84,7 +84,7 @@
 
     let canvasElement: HTMLCanvasElement;
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
+    gsap.registerPlugin(ScrollTrigger);
 
     onMount(() => {
         // Initializing the globe
@@ -193,7 +193,7 @@
             scrollTrigger: {
                 trigger: "#home",
                 start: "top top",
-                end: "bottom+=11130 center",
+                end: "bottom+=8260 center",
                 pin: "#home",
                 scrub: true,
                 // markers: true,
@@ -215,7 +215,7 @@
                 delay: 0.25,
             })
             .to(camera.position, {
-                delay: 3,
+                delay: 1,
             })
             .to(camera.position, {
                 duration: 1.5,
@@ -254,8 +254,8 @@
         const speakerTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: "#stats",
-                start: "top+=2900 center",
-                end: "top+=8500 center",
+                start: "top+=3750 center",
+                end: "top+=6000 center",
                 scrub: true,
                 // markers: true,
             },
@@ -270,19 +270,6 @@
             },
             0
         );
-
-        // Reveals the featured speakers
-        // speakers.forEach((_, index) => {
-        //     speakerTimeline.to(
-        //         "#speaker-" + index,
-        //         {
-        //             opacity: 1,
-        //             y: 15,
-        //             ease: "power2.out",
-        //         },
-        //         index - 1
-        //     );
-        // });
 
         speakerTimeline.to("#speakers", {
             opacity: 0,
@@ -392,7 +379,7 @@
         id="container"
     >
         <div
-            class="absolute top-[20%] sm:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-[20%] sm:-translate-y-1/4 w-full opacity-0 hidden transition-opacity"
+            class="absolute top-[20%] sm:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-[20%] sm:-translate-y-1/4 w-5/6 mx-auto opacity-0 hidden transition-opacity"
             id="stats"
         >
             <h2 class="text-lg sm:text-xl md:text-2xl text-white mb-10">
@@ -431,7 +418,7 @@
             class="absolute w-full h-screen flex text-left gap-4 sm:gap-8 flex-col py-14"
             id="speakers"
         >
-            <h2 class="text-center text-3xl sm:text-6xl font-bold text-white">
+            <h2 class="text-center text-4xl sm:text-6xl font-bold text-white">
                 2023 Speakers
             </h2>
             <div class="self-end text-white">
@@ -474,10 +461,10 @@
                 </Swiper>
             </div>
             <a
-                class="mt-4 font-semibold text-zinc-300 text-center text-lg"
+                class="mt-4 font-semibold text-zinc-200 text-center sm:text-lg"
                 href="/speakers"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
             >
                 View the Rest of Our 2023 Speakers →
             </a>
@@ -486,16 +473,35 @@
     </div>
 </section>
 
-<section class="w-screen bg-white" id="video">
-    <h3 class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5">
-        Hosted By
-    </h3>
+<section class="w-screen h-screen" id="video">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+            fill="#ffffff"
+            fill-opacity="1"
+            d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        />
+    </svg>
+    <div class="bg-white pb-10">
+        <h3
+            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5"
+        >
+            Hosted By
+        </h3>
 
-    <div
-        class="flex flex-col sm:flex-row gap-20 items-center justify-center mb-10"
-    >
-        <img src={branksome} alt="Branksome Hall Logo" class="h-full w-auto" />
-        <img src={ucc} alt="Upper Canada College Logo" class="h-full w-auto" />
+        <div
+            class="flex flex-col sm:flex-row gap-20 items-center justify-center mb-10"
+        >
+            <img
+                src={branksome}
+                alt="Branksome Hall Logo"
+                class="h-full w-auto"
+            />
+            <img
+                src={ucc}
+                alt="Upper Canada College Logo"
+                class="h-full w-auto"
+            />
+        </div>
     </div>
 </section>
 
