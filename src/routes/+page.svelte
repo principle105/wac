@@ -422,40 +422,58 @@
                 <button>Left</button>
                 <button>Right</button>
             </div>
-            <div class="grow">
-                <Swiper
-                    spaceBetween={10}
-                    slidesPerView={5}
-                    class="flex gap-6 w-full h-full"
-                    loop={true}
+            <div class="grow overflow-hidden relative">
+                <div
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[130vw]"
                 >
-                    {#each speakers as speaker}
-                        <SwiperSlide
-                            class="!w-[200px] sm:!w-[300px] rounded-md h-full relative overflow-hidden"
-                        >
-                            <img
-                                src={speaker.image}
-                                alt="{speaker.name}'s Headshot"
-                                class="w-full rounded-lg h-full object-cover"
-                            />
-
-                            <div
-                                class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md h-20 px-3 flex"
+                    <Swiper
+                        spaceBetween={10}
+                        slidesPerView={3}
+                        class="flex gap-6 w-full h-full"
+                        loop={true}
+                        breakpoints={{
+                            "@0.7": {
+                                slidesPerView: 4,
+                            },
+                            "@0.9": {
+                                slidesPerView: 5,
+                            },
+                            "@1.00": {
+                                slidesPerView: 6, // TODO: use pixel breakpoints
+                            },
+                        }}
+                    >
+                        <!-- !w-[200px] sm:!w-[300px] -->
+                        {#each speakers as speaker}
+                            <SwiperSlide
+                                class="rounded-md relative overflow-hidden"
                             >
-                                <div class="my-auto">
-                                    <h3
-                                        class="font-semibold text-white text-xl"
-                                    >
-                                        {speaker.name}
-                                    </h3>
-                                    <p class="text-zinc-300 text-xs">
-                                        {speaker.title}
-                                    </p>
+                                <img
+                                    src={speaker.image}
+                                    alt="{speaker.name}'s Headshot"
+                                    class="w-full rounded-lg h-full object-cover"
+                                />
+
+                                <div
+                                    class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md h-20 px-3 flex"
+                                >
+                                    <div class="my-auto">
+                                        <h3
+                                            class="font-semibold text-white text-lg md:text-xl"
+                                        >
+                                            {speaker.name}
+                                        </h3>
+                                        <p
+                                            class="text-zinc-300 text-[0.6rem] md:text-xs"
+                                        >
+                                            {speaker.title}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
-                    {/each}
-                </Swiper>
+                            </SwiperSlide>
+                        {/each}
+                    </Swiper>
+                </div>
             </div>
             <a
                 class="mt-4 font-semibold text-zinc-200 text-center sm:text-lg"
@@ -486,7 +504,7 @@
         </h3>
 
         <div
-            class="flex flex-col sm:flex-row gap-20 items-center justify-center mb-10"
+            class="flex flex-col md:flex-row gap-20 items-center justify-center mb-10"
         >
             <img
                 src={branksome}
