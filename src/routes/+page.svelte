@@ -255,28 +255,25 @@
             scrollTrigger: {
                 trigger: "#stats",
                 start: "top+=3750 center",
-                end: "top+=6000 center",
+                end: "top+=6500 center",
                 scrub: true,
                 // markers: true,
             },
         });
 
-        speakerTimeline.from(
-            "#speakers",
-            {
-                display: "hidden",
-                opacity: 0,
-                y: -10,
-            },
-            0
-        );
+        speakerTimeline.from("#speakers", {
+            display: "hidden",
+            opacity: 0,
+            y: -10,
+            duration: 1,
+        });
 
         speakerTimeline.to("#speakers", {
             opacity: 0,
             duration: 1,
             y: -10,
             display: "hidden",
-            delay: 1,
+            delay: 2,
         });
 
         // Removing last 10 items from starVertices array on scrolltrigger on each update (onUpdate)
