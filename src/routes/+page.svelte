@@ -4,7 +4,10 @@
     import ThreeGlobe from "three-globe";
 
     import gsap from "gsap";
-    import ScrollTrigger from "gsap/ScrollTrigger";
+    import { ScrollToPlugin, ScrollTrigger, Draggable } from "gsap/all";
+
+    import { Swiper, SwiperSlide } from "swiper/svelte";
+    import "swiper/css";
 
     // Importing the speaker images
     import mlk from "$lib/speakers/mlk.jpg";
@@ -17,6 +20,10 @@
     import davidOwen from "$lib/speakers/david_owen.jpg";
     import geoffreyHinton from "$lib/speakers/geoffrey_hinton.jpg";
 
+    // Importing the school images
+    import ucc from "$lib/logos/ucc.png";
+    import branksome from "$lib/logos/branksome.png";
+
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
     const TOTAL_STARS: number = 1500; // How many stars there are
@@ -25,7 +32,6 @@
         name: string;
         title: string;
         image: string;
-        large?: boolean;
     }
 
     const speakers: Speaker[] = [
@@ -33,7 +39,6 @@
             name: "Martin Luther King III",
             title: "American Human Rights Activist",
             image: mlk,
-            large: true,
         },
         {
             name: "Edward Snowden",
@@ -79,7 +84,7 @@
 
     let canvasElement: HTMLCanvasElement;
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
     onMount(() => {
         // Initializing the globe
@@ -250,25 +255,34 @@
             scrollTrigger: {
                 trigger: "#stats",
                 start: "top+=2900 center",
-                end: "top+=9500 center",
+                end: "top+=8500 center",
                 scrub: true,
                 // markers: true,
             },
         });
 
-        speakerTimeline.to("#speakers", {
-            display: "flex",
-            opacity: 1,
-        });
+        speakerTimeline.from(
+            "#speakers",
+            {
+                display: "hidden",
+                opacity: 0,
+                y: -10,
+            },
+            0
+        );
 
         // Reveals the featured speakers
-        speakers.forEach((_, index) => {
-            speakerTimeline.to("#speaker-" + index, {
-                opacity: 1,
-                y: 10,
-                ease: "power2.out",
-            });
-        });
+        // speakers.forEach((_, index) => {
+        //     speakerTimeline.to(
+        //         "#speaker-" + index,
+        //         {
+        //             opacity: 1,
+        //             y: 15,
+        //             ease: "power2.out",
+        //         },
+        //         index - 1
+        //     );
+        // });
 
         speakerTimeline.to("#speakers", {
             opacity: 0,
@@ -318,12 +332,12 @@
 >
     <div class="w-5/6 mx-auto">
         <h1
-            class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.25rem] text-white font-bold mb-5 lg:mb-6"
+            class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.35rem] text-white font-bold mb-5 lg:mb-6 tracking-tight"
         >
             World Affairs Conference
         </h1>
         <p
-            class="text-zinc-400 text-md lg:text-[1.3rem] mb-4 md:px-32 lg:px-48"
+            class="text-zinc-400 text-md lg:text-[1.3rem] mb-3.5 md:px-32 lg:px-48"
         >
             North America's largest and Canada's oldest annual student-run
             current events conference.
@@ -414,25 +428,27 @@
             </dl>
         </div>
         <div
-            class="absolute w-full h-screen hidden opacity-0 text-left gap-4 sm:gap-8 flex-col"
+            class="absolute w-full h-screen flex text-left gap-4 sm:gap-8 flex-col py-14"
             id="speakers"
         >
-            <h2
-                class="text-center text-3xl sm:text-5xl font-bold text-white mt-8 sm:mt-14"
-            >
-                Past Speakers
+            <h2 class="text-center text-3xl sm:text-6xl font-bold text-white">
+                2023 Speakers
             </h2>
-
-            <div
-                class="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 auto-rows-fr grow"
-            >
-                {#each speakers as speaker, index}
-                    <div
-                        id="speaker-{index}"
-                        class="opacity-0 transition-opacity col-span-1 row-span-1 {speaker.large &&
-                            'lg:col-span-2 lg:row-span-2'}"
-                    >
-                        <div class="rounded-md h-full relative overflow-hidden">
+            <div class="self-end text-white">
+                <button>Left</button>
+                <button>Right</button>
+            </div>
+            <div class="grow">
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={5}
+                    class="flex gap-6 w-full h-full"
+                    loop={true}
+                >
+                    {#each speakers as speaker}
+                        <SwiperSlide
+                            class="!w-[200px] sm:!w-[300px] rounded-md h-full relative overflow-hidden"
+                        >
                             <img
                                 src={speaker.image}
                                 alt="{speaker.name}'s Headshot"
@@ -440,49 +456,56 @@
                             />
 
                             <div
-                                class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md hidden sm:block {speaker.large
-                                    ? 'p-3'
-                                    : 'p-2'}"
+                                class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md h-20 px-3 flex"
                             >
-                                <h3
-                                    class="font-semibold text-white text-sm {speaker.large &&
-                                        'lg:text-xl'}"
-                                >
-                                    {speaker.name}
-                                </h3>
-                                <p
-                                    class="text-zinc-300 text-[0.6rem] {speaker.large &&
-                                        'lg:text-xs'}"
-                                >
-                                    {speaker.title}
-                                </p>
+                                <div class="my-auto">
+                                    <h3
+                                        class="font-semibold text-white text-xl"
+                                    >
+                                        {speaker.name}
+                                    </h3>
+                                    <p class="text-zinc-300 text-xs">
+                                        {speaker.title}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                {/each}
+                        </SwiperSlide>
+                    {/each}
+                </Swiper>
             </div>
-            <div class="mt-6" />
+            <a
+                class="mt-4 font-semibold text-zinc-300 text-center text-lg"
+                href="/speakers"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View the Rest of Our 2023 Speakers →
+            </a>
         </div>
         <canvas bind:this={canvasElement} />
     </div>
 </section>
 
-<section class="w-full h-screen flex flex-col" id="video">
-    <h2 class="text-5xl md:text-8xl text-white font-bold">Some Big Title</h2>
+<section class="w-screen bg-white" id="video">
+    <h3 class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5">
+        Hosted By
+    </h3>
+
+    <div
+        class="flex flex-col sm:flex-row gap-20 items-center justify-center mb-10"
+    >
+        <img src={branksome} alt="Branksome Hall Logo" class="h-full w-auto" />
+        <img src={ucc} alt="Upper Canada College Logo" class="h-full w-auto" />
+    </div>
+</section>
+
+<section class="w-scree h-screen">
     <iframe
         src="https://www.youtube.com/embed/UfDBOA47oN4"
-        class="w-full aspect-video my-auto"
+        class="w-full aspect-auto h-full sm:aspect-video sm:h-auto m-auto"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
     />
-</section>
-<section class="w-full h-screen">
-    <h2 class="text-5xl md:text-8xl text-white font-bold">
-        Some Other Big Title
-    </h2>
-</section>
-<section class="w-full h-screen">
-    <h2 class="text-5xl md:text-8xl text-white font-bold">Big Titles!!!</h2>
 </section>
