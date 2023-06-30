@@ -26,9 +26,37 @@
     }
 
     const barTl = gsap.timeline({ reversed: true });
+
     let toggle: HTMLButtonElement;
+    let headerElement: HTMLElement;
+    let lastScrollTop: number;
 
     onMount(() => {
+        window.addEventListener("scroll", function () {
+            if (headerElement === null) return;
+
+            var scrollTop =
+                window.scrollY || document.documentElement.scrollTop;
+
+            if (scrollTop < 350) {
+                headerElement.style.position = "absolute";
+                headerElement.style.backgroundColor = "transparent";
+                headerElement.classList.remove("backdrop-blur-lg");
+            } else {
+                headerElement.style.position = "fixed";
+                headerElement.style.backgroundColor = "rgb(0 0 0 / 0.1)";
+                headerElement.classList.add("backdrop-blur-lg");
+            }
+
+            if (scrollTop > lastScrollTop) {
+                headerElement.style.top = "-200px";
+            } else {
+                headerElement.style.top = "0";
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
         barTl.set("#navbar", {
             className:
                 "fixed right-0 bottom-0 z-50 bg-zinc-900 w-[68%] h-full bg-opacity-80 flex backdrop-blur-lg flex-col justify-center items-center text-xl gap-14 text-zinc-300",
@@ -99,7 +127,8 @@
 </script>
 
 <header
-    class="flex items-center justify-between px-6 lg:px-16 h-28 md:h-[8.5rem] absolute w-full z-50"
+    class="flex items-center justify-between px-6 lg:px-16 h-28 md:h-[8.5rem] w-full z-50 transition-all duration-300 absolute"
+    bind:this={headerElement}
 >
     <a href="/" class="hover:brightness-110 transition-all">
         <img src={logo} alt="logo" class="h-11 sm:h-14" />

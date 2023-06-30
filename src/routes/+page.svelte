@@ -32,6 +32,7 @@
         name: string;
         title: string;
         image: string;
+        specialRole?: string;
     }
 
     const speakers: Speaker[] = [
@@ -39,11 +40,13 @@
             name: "Martin Luther King III",
             title: "American Human Rights Activist",
             image: mlk,
+            specialRole: "Keynote Speaker",
         },
         {
             name: "Edward Snowden",
             title: "Former NSA Consultant & Whistleblower",
             image: edwardSnowden,
+            specialRole: "Criminal Speaker",
         },
         {
             name: "Ck Hoffler",
@@ -88,8 +91,6 @@
 
     onMount(() => {
         // Initializing the globe
-
-        // Make the atmosphere stronger
         const Globe = new ThreeGlobe({ animateIn: false })
             .globeImageUrl("//i.imgur.com/5bEEM5o.jpg")
             .bumpImageUrl(
@@ -281,7 +282,7 @@
         gsap.to(starVertices, {
             scrollTrigger: {
                 trigger: "#video",
-                start: "top-=100% bottom",
+                start: "top-=500px bottom",
                 end: "top bottom",
                 scrub: true,
                 // markers: true,
@@ -415,7 +416,9 @@
             class="absolute w-full h-screen flex text-left gap-4 sm:gap-8 flex-col py-14"
             id="speakers"
         >
-            <h2 class="text-center text-4xl sm:text-6xl font-bold text-white">
+            <h2
+                class="text-center text-4xl sm:text-6xl font-bold text-white tracking-tight"
+            >
                 2023 Speakers
             </h2>
             <div class="self-end text-white">
@@ -427,7 +430,7 @@
                     class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[130vw]"
                 >
                     <Swiper
-                        spaceBetween={10}
+                        spaceBetween={16}
                         slidesPerView={3}
                         class="flex gap-6 w-full h-full"
                         loop={true}
@@ -443,7 +446,6 @@
                             },
                         }}
                     >
-                        <!-- !w-[200px] sm:!w-[300px] -->
                         {#each speakers as speaker}
                             <SwiperSlide
                                 class="rounded-md relative overflow-hidden"
@@ -451,7 +453,7 @@
                                 <img
                                     src={speaker.image}
                                     alt="{speaker.name}'s Headshot"
-                                    class="w-full rounded-lg h-full object-cover"
+                                    class="w-full rounded-lg h-full object-cover transition-all"
                                 />
 
                                 <div
@@ -470,13 +472,18 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div
+                                    class="absolute top-3 left-3 p-2 bg-zinc-900/50 rounded-md text-xs text-white"
+                                >
+                                    {speaker.specialRole || "Plenary Speaker"}
+                                </div>
                             </SwiperSlide>
                         {/each}
                     </Swiper>
                 </div>
             </div>
             <a
-                class="mt-4 font-semibold text-zinc-200 text-center sm:text-lg"
+                class="font-semibold text-zinc-200 text-center sm:text-lg"
                 href="/speakers"
                 target="_blank"
                 rel="noreferrer"
@@ -488,39 +495,30 @@
     </div>
 </section>
 
-<section class="w-screen h-screen" id="video">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+<section class="w-screen bg-purple-300" id="video">
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
             fill="#ffffff"
             fill-opacity="1"
             d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         />
-    </svg>
-    <div class="bg-white pb-10">
-        <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5"
-        >
-            Hosted By
-        </h3>
+    </svg> -->
+    <!-- <div class="bg-white"> -->
+    <h3
+        class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5 text-white tracking-tight"
+    >
+        Hosted By
+    </h3>
 
-        <div
-            class="flex flex-col md:flex-row gap-20 items-center justify-center mb-10"
-        >
-            <img
-                src={branksome}
-                alt="Branksome Hall Logo"
-                class="h-full w-auto"
-            />
-            <img
-                src={ucc}
-                alt="Upper Canada College Logo"
-                class="h-full w-auto"
-            />
-        </div>
+    <div
+        class="flex flex-col md:flex-row gap-20 items-center justify-center mb-10"
+    >
+        <img src={branksome} alt="Branksome Hall Logo" class="h-full w-auto" />
+        <img src={ucc} alt="Upper Canada College Logo" class="h-full w-auto" />
     </div>
 </section>
 
-<section class="w-scree h-screen">
+<section class="w-screen h-screen">
     <iframe
         src="https://www.youtube.com/embed/UfDBOA47oN4"
         class="w-full aspect-auto h-full sm:aspect-video sm:h-auto m-auto"
