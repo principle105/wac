@@ -524,7 +524,7 @@
 
     <section class="w-screen h-screen" id="transitionPart" />
 
-    <section class="w-screen bg-white py-32">
+    <section class="bg-white py-32 w-5/6 mx-auto">
         <h3
             class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5 tracking-tight"
         >
@@ -559,23 +559,23 @@
     </section>
 
     <section
-        class="w-screen bg-zinc-900 px-32 py-20 flex justify-between items-center"
+        class="w-screen bg-zinc-900 px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
         id="action"
     >
-        <h2 class="uppercase flex flex-col">
-            <span
-                class="text-3xl md:text-4xl text-zinc-300 font-semibold tracking-tighter"
+        <h2 class="uppercase">
+            <div
+                class="text-2xl sm:text-4xl text-zinc-300 font-semibold tracking-tighter"
             >
                 Stay
-            </span>
-            <span
-                class="text-3xl md:text-7xl text-secondary font-bold tracking-tighter"
+            </div>
+            <div
+                class="text-3xl sm:text-7xl text-secondary font-bold tracking-tighter"
             >
                 Updated
-            </span>
+            </div>
         </h2>
         <div>
-            <h4 class="text-white text-2xl font-semibold mb-5">
+            <h4 class="text-white font-semibold mb-4 sm:mb-5 sm:text-2xl">
                 Sign up for WAC updates
             </h4>
             <div class="flex gap-1.5 flex-col sm:flex-row">
@@ -600,7 +600,7 @@
                     </div>
                     <input
                         type="text"
-                        class="border text-sm rounded-lg block w-56 md:w-80 pl-10 p-2.5 bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-zinc-400 focus:border-zinc-400 outline-none"
+                        class="border text-sm rounded-lg block w-full sm:w-64 md:w-80 pl-10 p-2.5 bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-zinc-400 focus:border-zinc-400 outline-none"
                         placeholder="name@school.com"
                     />
                 </div>
