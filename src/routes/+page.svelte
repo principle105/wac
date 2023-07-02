@@ -590,7 +590,7 @@
 
     <section class="mb-20 bg-white py-12 px-30" id="hostedBy">
         <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-8 tracking-tight"
+            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight"
         >
             Hosted By
         </h3>
@@ -643,11 +643,9 @@
             </p>
         </blockquote>
         <figcaption class="flex items-center justify-center mt-6 space-x-3">
-            <div
-                class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"
-            >
+            <div class="flex items-center divide-x-2 divide-zinc-700">
                 <cite class="pr-3 font-medium text-white">Some Person</cite>
-                <cite class="pl-3 text-sm text-gray-400">Some Role</cite>
+                <cite class="pl-3 text-sm text-zinc-400">Some Role</cite>
             </div>
         </figcaption>
     </figure>
@@ -732,3 +730,14 @@
         </div>
     </section>
 </div>
+
+<style>
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        right: 10px;
+        padding: 30px;
+        color: #ffffff !important;
+        fill: black !important;
+        stroke: black !important;
+    }
+</style>
