@@ -48,7 +48,7 @@
                 headerElement.classList.add("backdrop-blur-lg");
             }
 
-            if (scrollTop > lastScrollTop) {
+            if (scrollTop >= lastScrollTop) {
                 headerElement.style.top = "-200px";
             } else {
                 headerElement.style.top = "0";
