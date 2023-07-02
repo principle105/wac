@@ -431,29 +431,33 @@
                 </dl>
             </div>
             <div
-                class="absolute w-full h-screen flex text-left gap-4 sm:gap-6 flex-col py-14"
+                class="absolute w-full h-screen flex text-left gap-10 sm:gap-6 flex-col py-14"
                 id="speakers"
             >
-                <h2
-                    class="text-center text-4xl sm:text-6xl font-bold text-white tracking-tight"
+                <div
+                    class="flex justify-between sm:justify-normal sm:flex-col gap-6 mx-6 sm:mx-10 md:mx-20"
                 >
-                    2023 Speakers
-                </h2>
-                <div class="self-end mr-10 md:mr-20">
-                    <button
-                        class="h-9 w-9 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                    <h2
+                        class="text-center text-3xl sm:text-6xl font-bold text-white tracking-tight"
                     >
-                        <TiArrowLeft />
-                    </button>
-                    <button
-                        class="h-9 w-9 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
-                    >
-                        <TiArrowRight />
-                    </button>
+                        2023 Speakers
+                    </h2>
+                    <div class="self-end">
+                        <button
+                            class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                        >
+                            <TiArrowLeft />
+                        </button>
+                        <button
+                            class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                        >
+                            <TiArrowRight />
+                        </button>
+                    </div>
                 </div>
                 <div class="grow overflow-hidden relative">
                     <div
-                        class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[130vw]"
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[160vw] sm:w-[130vw]"
                     >
                         <Swiper
                             spaceBetween={16}
@@ -487,7 +491,7 @@
                                     >
                                         <div class="my-auto">
                                             <h3
-                                                class="font-semibold text-white text-lg md:text-xl"
+                                                class="font-semibold text-white sm:text-lg md:text-xl"
                                             >
                                                 {speaker.name}
                                             </h3>
