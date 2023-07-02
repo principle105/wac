@@ -6,8 +6,10 @@
     import gsap from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+    import { Navigation } from "swiper";
     import { Swiper, SwiperSlide } from "swiper/svelte";
     import "swiper/css";
+    import "swiper/css/navigation";
 
     // Importing the speaker images
     import mlk from "$lib/speakers/mlk.jpg";
@@ -20,6 +22,15 @@
     import davidOwen from "$lib/speakers/david_owen.jpg";
     import geoffreyHinton from "$lib/speakers/geoffrey_hinton.jpg";
 
+    // Importing showcase images
+    import showcase1 from "$lib/showcase/showcase_1.jpg";
+    import showcase2 from "$lib/showcase/showcase_2.jpg";
+    import showcase3 from "$lib/showcase/showcase_3.jpg";
+    import showcase4 from "$lib/showcase/showcase_4.jpg";
+    import showcase5 from "$lib/showcase/showcase_5.png";
+    import showcase6 from "$lib/showcase/showcase_6.png";
+    import showcase7 from "$lib/showcase/showcase_7.png";
+
     // Importing the school images
     import ucc from "$lib/logos/ucc.png";
     import branksome from "$lib/logos/branksome.png";
@@ -31,6 +42,12 @@
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
     const TOTAL_STARS: number = 1500; // How many stars there are
+
+    interface Showcase {
+        image: string;
+        title: string;
+        description: string;
+    }
 
     interface Speaker {
         name: string;
@@ -86,6 +103,45 @@
             name: "Dr Geoffrey Hinton",
             title: "2018 recipient of the Turing Award for Computer Science",
             image: geoffreyHinton,
+        },
+    ];
+
+    let showcases: Showcase[] = [
+        {
+            image: showcase1,
+            title: "The Future of Space Exploration",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+        {
+            image: showcase2,
+            title: "The Future of the Internet",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+        {
+            image: showcase3,
+            title: "The Future of Democracy",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+        {
+            image: showcase4,
+            title: "The Future of Criminality",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+        {
+            image: showcase5,
+            title: "The Future of Business",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+        {
+            image: showcase6,
+            title: "The Future of Artificial Intelligence",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
         },
     ];
 
@@ -231,7 +287,7 @@
                     x: 0,
                     y: -75,
                     z: 175,
-                    ease: "linear",
+                    ease: "power1.out",
                 });
 
             const textTimeline = gsap.timeline({
@@ -289,7 +345,7 @@
             gsap.to(starVertices, {
                 scrollTrigger: {
                     trigger: "#hostedBy",
-                    start: "top-=100% bottom",
+                    start: "top-=200% bottom",
                     end: "top bottom",
                     scrub: true,
                     // markers: true,
@@ -402,7 +458,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
                         >
                             10k+
                         </dt>
@@ -412,7 +468,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
                         >
                             35+
                         </dt>
@@ -422,7 +478,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
                         >
                             80+
                         </dt>
@@ -526,30 +582,30 @@
         </div>
     </section>
 
-    <section class="w-5/6 mx-auto mb-20" id="hostedBy">
+    <section class="mb-20 bg-white py-12 px-30" id="hostedBy">
         <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-8 tracking-tight text-white"
+            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-8 tracking-tight"
         >
             Hosted By
         </h3>
 
         <div
-            class="flex flex-col md:flex-row gap-7 md:gap-20 items-center justify-center mb-12"
+            class="flex flex-col md:flex-row gap-7 md:gap-20 items-center justify-center"
         >
             <img
                 src={branksome}
                 alt="Branksome Hall Logo"
-                class="h-40 p-8 rounded-md w-auto bg-green-900/10"
+                class="h-40 p-8 rounded-md w-auto"
             />
             <img
                 src={ucc}
                 alt="Upper Canada College Logo"
-                class="h-40 p-8 rounded-md w-auto bg-blue-900/10"
+                class="h-40 p-8 rounded-md w-auto"
             />
         </div>
     </section>
 
-    <section class="w-5/6 mx-auto">
+    <section class="sm:w-5/6 mx-auto h-screen sm:h-auto">
         <iframe
             src="https://www.youtube.com/embed/UfDBOA47oN4"
             class="w-full aspect-auto h-full sm:aspect-video sm:h-auto m-auto"
@@ -560,25 +616,55 @@
         />
     </section>
 
-    <div class="w-5/6 mx-auto py-64 flex items-center justify-center">
-        <div class="text-center">
-            <blockquote>
-                <p class="text-3xl sm:text-5xl text-white font-semibold">
-                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Consequatur voluptate aliquid beatae omnis cum, cupiditate
-                    laudantium eligendi dignissimos et similique!"
-                </p>
+    <figure class="w-5/6 mx-auto text-center py-64">
+        <svg
+            aria-hidden="true"
+            class="w-12 h-12 mx-auto mb-3 text-zinc-600"
+            viewBox="0 0 24 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
+                fill="currentColor"
+            />
+        </svg>
+        <blockquote>
+            <p class="text-2xl sm:text-4xl md:text-5xl font-medium text-white">
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi saepe sint obcaecati deserunt eaque perferendis?
+                Repellat maiores aspernatur fugit excepturi!"
+            </p>
+        </blockquote>
+        <figcaption class="flex items-center justify-center mt-6 space-x-3">
+            <div
+                class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700"
+            >
+                <cite class="pr-3 font-medium text-white">Some Person</cite>
+                <cite class="pl-3 text-sm text-gray-400">Some Role</cite>
+            </div>
+        </figcaption>
+    </figure>
 
-                <cite class="text-xl text-zinc-300 font-semibold">
-                    — Some Person
-                </cite>
-            </blockquote>
-        </div>
-    </div>
+    <section class="w-screen h-[90vh] relative select-none">
+        <Swiper
+            class="w-full h-full"
+            loop={true}
+            modules={[Navigation]}
+            navigation
+        >
+            {#each showcases as showcase}
+                <SwiperSlide>
+                    <img
+                        src={showcase.image}
+                        alt={showcase.description}
+                        class="w-full h-full object-cover transition-all"
+                    />
+                </SwiperSlide>
+            {/each}
+        </Swiper>
 
-    <section class="w-screen h-screen relative">
-        <div class="bg-black h-full w-full" />
-        <div class="absolute top-16 left-16">
+        <div class="absolute top-16 left-16 z-50">
             <h3 class="text-white text-4xl font-semibold tracking-tight">
                 World Affairs Conference
             </h3>
