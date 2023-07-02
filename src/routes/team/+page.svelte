@@ -80,9 +80,10 @@
 </svelte:head>
 
 <section class="pt-[8.5rem]">
-    <div class="px-4 pt-16 mx-auto md:px-24 lg:px-8">
+    <!-- TODO: add a title or something say "Wac 2023 Team" -->
+    <div class="px-4 pt-4 sm:pt-10 md:pt-16 mx-auto md:px-24 lg:px-8">
         <div
-            class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12"
+            class="max-w-xl mb-10 sm:mx-auto sm:text-center lg:max-w-2xl md:mb-12"
         >
             <h2
                 class="max-w-lg mb-6 text-3xl font-bold leading-none tracking-tight text-white sm:text-4xl md:mx-auto"
@@ -91,7 +92,7 @@
             </h2>
         </div>
         <div
-            class="grid gap-10 mx-auto sm:grid-cols-2 lg:grid-cols-3 lg:max-w-screen-lg"
+            class="grid gap-5 sm:gap-7 lg:gap-10 mx-auto sm:grid-cols-2 lg:grid-cols-3 lg:max-w-screen-lg"
         >
             {#each executives as member}
                 <div>
@@ -130,7 +131,7 @@
             </h2>
         </div>
         <div
-            class="grid gap-10 row-gap-8 mx-auto sm:row-gap-10 lg:max-w-screen-lg sm:grid-cols-2 lg:grid-cols-3"
+            class="grid gap-5 sm:gap-7 lg:gap-10 row-gap-8 mx-auto sm:row-gap-10 lg:max-w-screen-lg sm:grid-cols-2 lg:grid-cols-3"
         >
             {#each seniorTeam as member}
                 <div class="flex">

@@ -25,8 +25,8 @@
     import branksome from "$lib/logos/branksome.png";
 
     // Icons
-    import FaArrowAltCircleLeft from "svelte-icons/fa/FaArrowAltCircleLeft.svelte";
-    import FaArrowAltCircleRight from "svelte-icons/fa/FaArrowAltCircleRight.svelte";
+    import TiArrowLeft from "svelte-icons/ti/TiArrowLeft.svelte";
+    import TiArrowRight from "svelte-icons/ti/TiArrowRight.svelte";
 
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
@@ -133,7 +133,7 @@
         camera.updateProjectionMatrix();
 
         camera.position.x = 0;
-        camera.position.y = 120;
+        camera.position.y = 121;
         camera.position.z = 125;
 
         scene.add(camera);
@@ -264,7 +264,7 @@
                 scrollTrigger: {
                     trigger: "#stats",
                     start: "top+=3300 center",
-                    end: "top+=5700 center",
+                    end: "top+=5600 center",
                     scrub: true,
                     // markers: true,
                 },
@@ -392,7 +392,7 @@
                 class="absolute top-[20%] sm:top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-[20%] sm:-translate-y-1/4 w-5/6 mx-auto opacity-0 hidden transition-opacity"
                 id="stats"
             >
-                <h2 class="text-lg sm:text-xl md:text-2xl text-white mb-10">
+                <h2 class="text-lg sm:text-xl md:text-2xl text-zinc-300 mb-10">
                     WAC has reached:
                 </h2>
                 <dl
@@ -402,7 +402,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
                         >
                             10k+
                         </dt>
@@ -412,7 +412,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
                         >
                             35+
                         </dt>
@@ -422,7 +422,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[4.75rem] font-bold"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[4.9rem] font-bold tracking-tight"
                         >
                             80+
                         </dt>
@@ -439,12 +439,16 @@
                 >
                     2023 Speakers
                 </h2>
-                <div class="self-end mr-10 md:mr-20 text-white">
-                    <button class="h-9 w-9 sm:h-11 sm:w-11">
-                        <FaArrowAltCircleLeft />
+                <div class="self-end mr-10 md:mr-20">
+                    <button
+                        class="h-9 w-9 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                    >
+                        <TiArrowLeft />
                     </button>
-                    <button class="h-9 w-9 sm:h-11 sm:w-11">
-                        <FaArrowAltCircleRight />
+                    <button
+                        class="h-9 w-9 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                    >
+                        <TiArrowRight />
                     </button>
                 </div>
                 <div class="grow overflow-hidden relative">
@@ -518,7 +522,7 @@
         </div>
     </section>
 
-    <section class="w-5/6 mx-auto" id="hostedBy">
+    <section class="w-5/6 mx-auto mb-20" id="hostedBy">
         <h3
             class="text-3xl md:text-4xl font-semibold uppercase text-center mb-8 tracking-tight text-white"
         >
@@ -541,7 +545,7 @@
         </div>
     </section>
 
-    <section class="w-screen h-screen">
+    <section class="w-5/6 mx-auto">
         <iframe
             src="https://www.youtube.com/embed/UfDBOA47oN4"
             class="w-full aspect-auto h-full sm:aspect-video sm:h-auto m-auto"
@@ -550,6 +554,31 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
         />
+    </section>
+
+    <div class="w-5/6 mx-auto py-64 flex items-center justify-center">
+        <div class="text-center">
+            <blockquote>
+                <p class="text-3xl sm:text-5xl text-white font-semibold">
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Consequatur voluptate aliquid beatae omnis cum, cupiditate
+                    laudantium eligendi dignissimos et similique!"
+                </p>
+
+                <cite class="text-xl text-zinc-300 font-semibold">
+                    — Some Person
+                </cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <section class="w-screen h-screen relative">
+        <div class="bg-black h-full w-full" />
+        <div class="absolute top-16 left-16">
+            <h3 class="text-white text-4xl font-semibold tracking-tight">
+                World Affairs Conference
+            </h3>
+        </div>
     </section>
 
     <section
