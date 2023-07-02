@@ -143,6 +143,12 @@
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
         },
+        {
+            image: showcase7,
+            title: "The Future of Artificial Intelligence",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
     ];
 
     let canvasElement: HTMLCanvasElement;
