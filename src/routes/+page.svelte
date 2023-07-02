@@ -24,6 +24,10 @@
     import ucc from "$lib/logos/ucc.png";
     import branksome from "$lib/logos/branksome.png";
 
+    // Icons
+    import FaArrowAltCircleLeft from "svelte-icons/fa/FaArrowAltCircleLeft.svelte";
+    import FaArrowAltCircleRight from "svelte-icons/fa/FaArrowAltCircleRight.svelte";
+
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
     const TOTAL_STARS: number = 1500; // How many stars there are
@@ -284,7 +288,7 @@
 
             gsap.to(starVertices, {
                 scrollTrigger: {
-                    trigger: "#transitionPart",
+                    trigger: "#hostedBy",
                     start: "top-=100% bottom",
                     end: "top bottom",
                     scrub: true,
@@ -304,18 +308,6 @@
                         );
                     },
                 },
-            });
-
-            gsap.to(gsapScope, {
-                scrollTrigger: {
-                    trigger: "#transitionPart",
-                    start: "top+=50% bottom",
-                    end: "bottom bottom",
-                    scrub: true,
-                    // markers: true,
-                },
-                backgroundColor: "#ffffff",
-                ease: "linear",
             });
 
             return () => ctx.revert();
@@ -439,7 +431,7 @@
                 </dl>
             </div>
             <div
-                class="absolute w-full h-screen flex text-left gap-4 sm:gap-8 flex-col py-14"
+                class="absolute w-full h-screen flex text-left gap-4 sm:gap-6 flex-col py-14"
                 id="speakers"
             >
                 <h2
@@ -447,9 +439,13 @@
                 >
                     2023 Speakers
                 </h2>
-                <div class="self-end text-white">
-                    <button>Left</button>
-                    <button>Right</button>
+                <div class="self-end mr-10 md:mr-20 text-white">
+                    <button class="h-9 w-9 sm:h-11 sm:w-11">
+                        <FaArrowAltCircleLeft />
+                    </button>
+                    <button class="h-9 w-9 sm:h-11 sm:w-11">
+                        <FaArrowAltCircleRight />
+                    </button>
                 </div>
                 <div class="grow overflow-hidden relative">
                     <div
@@ -522,27 +518,25 @@
         </div>
     </section>
 
-    <section class="w-screen h-screen" id="transitionPart" />
-
-    <section class="bg-white py-32 w-5/6 mx-auto">
+    <section class="w-5/6 mx-auto" id="hostedBy">
         <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-5 tracking-tight"
+            class="text-3xl md:text-4xl font-semibold uppercase text-center mb-8 tracking-tight text-white"
         >
             Hosted By
         </h3>
 
         <div
-            class="flex flex-col md:flex-row gap-20 items-center justify-center mb-10"
+            class="flex flex-col md:flex-row gap-7 md:gap-20 items-center justify-center mb-12"
         >
             <img
                 src={branksome}
                 alt="Branksome Hall Logo"
-                class="h-full w-auto"
+                class="h-40 p-8 rounded-md w-auto bg-green-900/10"
             />
             <img
                 src={ucc}
                 alt="Upper Canada College Logo"
-                class="h-full w-auto"
+                class="h-40 p-8 rounded-md w-auto bg-blue-900/10"
             />
         </div>
     </section>
@@ -600,7 +594,7 @@
                     </div>
                     <input
                         type="text"
-                        class="border text-sm rounded-lg block w-full sm:w-64 md:w-80 pl-10 p-2.5 bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-zinc-400 focus:border-zinc-400 outline-none"
+                        class="border text-sm rounded-lg block w-full sm:w-64 md:w-96 pl-10 p-2.5 bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-zinc-400 focus:border-zinc-400 outline-none"
                         placeholder="name@school.com"
                     />
                 </div>
