@@ -33,6 +33,8 @@
 
     // Importing video thumbnails
     import thumbnail2023 from "$lib/thumbnails/2023.webp";
+    import thumbnail2020 from "$lib/thumbnails/2020.webp";
+    import thumbnail2019 from "$lib/thumbnails/2019.webp";
 
     // Importing the school images
     import ucc from "$lib/logos/ucc.webp";
@@ -58,6 +60,13 @@
         title: string;
         image: string;
         specialRole?: string;
+    }
+
+    interface Theme {
+        name: string;
+        year: number;
+        thumbnail: string;
+        videoURL: string;
     }
 
     const speakers: Speaker[] = [
@@ -152,6 +161,27 @@
             title: "The Future of Artificial Intelligence",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
+        },
+    ];
+
+    let themes: Theme[] = [
+        {
+            name: "Hybrid Thinking",
+            year: 2023,
+            thumbnail: thumbnail2023,
+            videoURL: "https://www.youtube.com/watch?v=svfMVfYeOd8",
+        },
+        {
+            name: "World Gone",
+            year: 2020,
+            thumbnail: thumbnail2020,
+            videoURL: "https://www.youtube.com/watch?v=KveYOMD7fp0",
+        },
+        {
+            name: "20/20 Vision",
+            year: 2019,
+            thumbnail: thumbnail2019,
+            videoURL: "https://www.youtube.com/watch?v=GUycwPz_Kds",
         },
     ];
 
@@ -608,39 +638,46 @@
         </div>
     </section>
 
-    <section class="mx-6 sm:mx-10 mb-32" id="hostedBy">
+    <section class="mx-4 sm:mx-6 mb-32" id="hostedBy">
         <h3
             class="text-center text-white text-7xl mb-11 font-bold tracking-tight"
         >
             Themes
         </h3>
         <div class="flex flex-col lg:flex-row gap-3">
-            {#each [1, 2, 3] as i}
-                <div class="relative">
+            {#each themes as theme}
+                <a
+                    class="relative w-full rounded-lg overflow-hidden"
+                    href={theme.videoURL}
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <img
-                        src={thumbnail2023}
-                        alt="2023 Video Thumbnail"
+                        src={theme.thumbnail}
+                        alt="{theme.name} Thumbnail"
                         class="w-full object-cover h-[26rem]"
                     />
                     <div
                         class="absolute w-max flex justify-center items-center flex-col gap-8 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                     >
-                        <div class="text-4xl font-bold tracking-tight">
-                            Hybrid Thinking
+                        <div
+                            class="text-4xl lg:text-5xl font-bold tracking-tight"
+                        >
+                            {theme.name}
                         </div>
                         <div class="h-20 w-20">
                             <IoIosPlayCircle />
                         </div>
                         <div class="text-5xl font-bold tracking-tighter">
-                            2023
+                            {theme.year}
                         </div>
                     </div>
-                </div>
+                </a>
             {/each}
         </div>
     </section>
 
-    <section class="bg-white py-8 px-30 mb-32">
+    <section class="bg-white py-10 px-30 mb-32">
         <h3
             class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight"
         >
@@ -693,6 +730,16 @@
             </h3>
         </div>
     </section>
+
+    <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/KveYOMD7fp0"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+    />
 
     <section
         class="w-screen bg-zinc-900 px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
