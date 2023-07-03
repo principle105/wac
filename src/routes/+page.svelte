@@ -642,7 +642,7 @@
         <h3
             class="text-center text-white text-7xl mb-11 font-bold tracking-tight"
         >
-            Themes
+            Past Themes
         </h3>
         <div class="flex flex-col lg:flex-row gap-3">
             {#each themes as theme}
@@ -703,7 +703,7 @@
     <section
         class="text-5xl sm:text-7xl tracking-tight font-bold text-center text-white mb-32"
     >
-        Some Action Statement
+        Put Something Here
     </section>
 
     <section class="w-screen h-[90vh] relative select-none">
