@@ -731,16 +731,6 @@
         </div>
     </section>
 
-    <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/KveYOMD7fp0"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-    />
-
     <section
         class="w-screen bg-zinc-900 px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
         id="action"
