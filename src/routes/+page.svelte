@@ -6,8 +6,8 @@
     import gsap from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    import { Navigation } from "swiper";
-    import { Swiper, SwiperSlide } from "swiper/svelte";
+    import { Navigation, Swiper } from "swiper";
+    import { Swiper as SwiperContainer, SwiperSlide } from "swiper/svelte";
     import "swiper/css";
     import "swiper/css/navigation";
 
@@ -379,6 +379,16 @@
             return () => ctx.revert();
         }, gsapScope);
     });
+
+    let swiperInstance: Swiper;
+
+    const prevSlide = () => {
+        swiperInstance.slidePrev();
+    };
+
+    const nextSlide = () => {
+        swiperInstance.slideNext();
+    };
 </script>
 
 <svelte:head>
@@ -510,11 +520,13 @@
                     </h2>
                     <div class="self-end">
                         <button
+                            on:click={prevSlide}
                             class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
                         >
                             <TiArrowLeft />
                         </button>
                         <button
+                            on:click={nextSlide}
                             class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
                         >
                             <TiArrowRight />
@@ -525,11 +537,15 @@
                     <div
                         class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[160vw] sm:w-[130vw]"
                     >
-                        <Swiper
+                        <SwiperContainer
                             spaceBetween={16}
                             slidesPerView={3}
                             class="flex gap-6 w-full h-full"
                             loop={true}
+                            navigation
+                            on:init={(swiper) => {
+                                swiperInstance = swiper.detail[0];
+                            }}
                             breakpoints={{
                                 "@0.7": {
                                     slidesPerView: 4,
@@ -576,7 +592,7 @@
                                     </div>
                                 </SwiperSlide>
                             {/each}
-                        </Swiper>
+                        </SwiperContainer>
                     </div>
                 </div>
                 <a
@@ -654,7 +670,7 @@
     </section>
 
     <section class="w-screen h-[90vh] relative select-none">
-        <Swiper
+        <SwiperContainer
             class="w-full h-full"
             loop={true}
             modules={[Navigation]}
@@ -669,7 +685,7 @@
                     />
                 </SwiperSlide>
             {/each}
-        </Swiper>
+        </SwiperContainer>
 
         <div class="absolute top-16 left-16 z-50">
             <h3 class="text-white text-4xl font-semibold tracking-tight">
