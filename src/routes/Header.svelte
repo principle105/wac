@@ -3,7 +3,7 @@
     import { page } from "$app/stores";
     import gsap, { Expo } from "gsap";
 
-    import logo from "$lib/logos/wac_large.png";
+    import logo from "$lib/logos/wac_large.webp";
 
     interface Route {
         name: string;

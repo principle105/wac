@@ -23,21 +23,25 @@
     import geoffreyHinton from "$lib/speakers/geoffrey_hinton.jpg";
 
     // Importing showcase images
-    import showcase1 from "$lib/showcase/showcase_1.jpg";
-    import showcase2 from "$lib/showcase/showcase_2.jpg";
-    import showcase3 from "$lib/showcase/showcase_3.jpg";
-    import showcase4 from "$lib/showcase/showcase_4.jpg";
-    import showcase5 from "$lib/showcase/showcase_5.png";
-    import showcase6 from "$lib/showcase/showcase_6.png";
-    import showcase7 from "$lib/showcase/showcase_7.png";
+    import showcase1 from "$lib/showcase/showcase_1.webp";
+    import showcase2 from "$lib/showcase/showcase_2.webp";
+    import showcase3 from "$lib/showcase/showcase_3.webp";
+    import showcase4 from "$lib/showcase/showcase_4.webp";
+    import showcase5 from "$lib/showcase/showcase_5.webp";
+    import showcase6 from "$lib/showcase/showcase_6.webp";
+    import showcase7 from "$lib/showcase/showcase_7.webp";
+
+    // Importing video thumbnails
+    import thumbnail2023 from "$lib/thumbnails/2023.webp";
 
     // Importing the school images
-    import ucc from "$lib/logos/ucc.png";
-    import branksome from "$lib/logos/branksome.png";
+    import ucc from "$lib/logos/ucc.webp";
+    import branksome from "$lib/logos/branksome.webp";
 
     // Icons
     import TiArrowLeft from "svelte-icons/ti/TiArrowLeft.svelte";
     import TiArrowRight from "svelte-icons/ti/TiArrowRight.svelte";
+    import IoIosPlayCircle from "svelte-icons/io/IoIosPlayCircle.svelte";
 
     // Constants
     const SPREAD: number = 700; // How spread out the stars are
@@ -493,14 +497,14 @@
                 </dl>
             </div>
             <div
-                class="absolute w-full h-screen flex text-left gap-10 sm:gap-6 flex-col py-14"
+                class="absolute w-full h-screen flex text-left gap-10 sm:gap-6 flex-col py-16"
                 id="speakers"
             >
                 <div
                     class="flex justify-between sm:justify-normal sm:flex-col gap-6 mx-6 sm:mx-10 md:mx-20"
                 >
                     <h2
-                        class="text-center text-3xl sm:text-6xl font-bold text-white tracking-tight"
+                        class="text-center text-3xl sm:text-7xl font-bold text-white tracking-tight"
                     >
                         2023 Speakers
                     </h2>
@@ -588,7 +592,39 @@
         </div>
     </section>
 
-    <section class="mb-20 bg-white py-12 px-30" id="hostedBy">
+    <section class="mx-6 sm:mx-10 mb-32" id="hostedBy">
+        <h3
+            class="text-center text-white text-7xl mb-11 font-bold tracking-tight"
+        >
+            Themes
+        </h3>
+        <div class="flex flex-col lg:flex-row gap-3">
+            {#each [1, 2, 3] as i}
+                <div class="relative">
+                    <img
+                        src={thumbnail2023}
+                        alt="2023 Video Thumbnail"
+                        class="w-full object-cover h-[26rem]"
+                    />
+                    <div
+                        class="absolute w-max flex justify-center items-center flex-col gap-8 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    >
+                        <div class="text-4xl font-bold tracking-tight">
+                            Hybrid Thinking
+                        </div>
+                        <div class="h-20 w-20">
+                            <IoIosPlayCircle />
+                        </div>
+                        <div class="text-5xl font-bold tracking-tighter">
+                            2023
+                        </div>
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </section>
+
+    <section class="bg-white py-8 px-30 mb-32">
         <h3
             class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight"
         >
@@ -611,44 +647,11 @@
         </div>
     </section>
 
-    <section class="sm:w-5/6 mx-auto h-screen sm:h-auto">
-        <iframe
-            src="https://www.youtube.com/embed/UfDBOA47oN4"
-            class="w-full aspect-auto h-full sm:aspect-video sm:h-auto m-auto"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-        />
+    <section
+        class="text-5xl sm:text-7xl tracking-tight font-bold text-center text-white mb-32"
+    >
+        Some Action Statement
     </section>
-
-    <figure class="w-5/6 mx-auto text-center py-64">
-        <svg
-            aria-hidden="true"
-            class="w-12 h-12 mx-auto mb-3 text-zinc-600"
-            viewBox="0 0 24 27"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
-                fill="currentColor"
-            />
-        </svg>
-        <blockquote>
-            <p class="text-2xl sm:text-4xl md:text-5xl font-medium text-white">
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi saepe sint obcaecati deserunt eaque perferendis?
-                Repellat maiores aspernatur fugit excepturi!"
-            </p>
-        </blockquote>
-        <figcaption class="flex items-center justify-center mt-6 space-x-3">
-            <div class="flex items-center divide-x-2 divide-zinc-700">
-                <cite class="pr-3 font-medium text-white">Some Person</cite>
-                <cite class="pl-3 text-sm text-zinc-400">Some Role</cite>
-            </div>
-        </figcaption>
-    </figure>
 
     <section class="w-screen h-[90vh] relative select-none">
         <Swiper
