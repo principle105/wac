@@ -647,7 +647,7 @@
         <div class="flex flex-col lg:flex-row gap-3">
             {#each themes as theme}
                 <a
-                    class="relative w-full rounded-lg overflow-hidden"
+                    class="relative w-full rounded-lg overflow-hidden hover:scale-105 transition-all duration-300 ease-in-out"
                     href={theme.videoURL}
                     target="_blank"
                     rel="noreferrer"
@@ -677,25 +677,25 @@
         </div>
     </section>
 
-    <section class="bg-white py-10 px-30 mb-32">
+    <section class="bg-white py-12 px-30 mb-32">
         <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight"
+            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight mb-5"
         >
             Hosted By
         </h3>
 
         <div
-            class="flex flex-col md:flex-row gap-7 md:gap-20 items-center justify-center"
+            class="flex flex-col md:flex-row gap-7 md:gap-32 items-center justify-center"
         >
             <img
                 src={branksome}
                 alt="Branksome Hall Logo"
-                class="h-40 p-8 rounded-md w-auto"
+                class="h-24 rounded-md w-auto"
             />
             <img
                 src={ucc}
                 alt="Upper Canada College Logo"
-                class="h-40 p-8 rounded-md w-auto"
+                class="h-24 rounded-md w-auto"
             />
         </div>
     </section>
