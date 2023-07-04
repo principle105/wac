@@ -763,7 +763,7 @@
         class="w-screen bg-zinc-900 px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
         id="action"
     >
-        <h2 class="uppercase">
+        <h3 class="uppercase">
             <div
                 class="text-2xl sm:text-4xl text-zinc-300 font-semibold tracking-tighter"
             >
@@ -774,11 +774,11 @@
             >
                 Updated
             </div>
-        </h2>
+        </h3>
         <div>
-            <h4 class="text-white font-semibold mb-4 sm:mb-5 sm:text-2xl">
+            <h3 class="text-white font-semibold mb-4 sm:mb-5 sm:text-2xl">
                 Sign up for WAC updates
-            </h4>
+            </h3>
             <div class="flex gap-1.5 flex-col sm:flex-row">
                 <div class="relative">
                     <div
