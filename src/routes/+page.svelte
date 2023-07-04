@@ -658,7 +658,7 @@
                     class="font-semibold text-zinc-200 text-center sm:text-lg"
                     href="/speakers"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                 >
                     View the Rest of Our 2023 Speakers →
                 </a>
@@ -679,7 +679,7 @@
                     class="relative w-full group hover:scale-[1.025] transition-all duration-300 ease-in-out"
                     href={theme.videoURL}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                 >
                     <img
                         src={theme.thumbnail}

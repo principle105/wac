@@ -58,7 +58,8 @@
                     href={social.link}
                     class="h-6 w-6"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
+                    aria-label="{social.name} page"
                 >
                     <svelte:component this={social.icon} />
                 </a>
