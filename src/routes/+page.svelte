@@ -12,15 +12,15 @@
     import "swiper/css/navigation";
 
     // Importing the speaker images
-    import mlk from "$lib/speakers/mlk.jpg";
-    import edwardSnowden from "$lib/speakers/edward_snowden.jpg";
-    import ckHoffler from "$lib/speakers/ck_hoffler.jpg";
-    import scottGalloway from "$lib/speakers/scott_galloway.jpg";
-    import marcGarneau from "$lib/speakers/marc_garneau.jpg";
-    import mehdiHasan from "$lib/speakers/mehdi_hasan.jpg";
-    import johnStackhouse from "$lib/speakers/john_stackhouse.jpg";
-    import davidOwen from "$lib/speakers/david_owen.jpg";
-    import geoffreyHinton from "$lib/speakers/geoffrey_hinton.jpg";
+    import mlk from "$lib/speakers/mlk.webp";
+    import edwardSnowden from "$lib/speakers/edward_snowden.webp";
+    import ckHoffler from "$lib/speakers/ck_hoffler.webp";
+    import scottGalloway from "$lib/speakers/scott_galloway.webp";
+    import marcGarneau from "$lib/speakers/marc_garneau.webp";
+    import mehdiHasan from "$lib/speakers/mehdi_hasan.webp";
+    import johnStackhouse from "$lib/speakers/john_stackhouse.webp";
+    import davidOwen from "$lib/speakers/david_owen.webp";
+    import geoffreyHinton from "$lib/speakers/geoffrey_hinton.webp";
 
     // Importing showcase images
     import showcase1 from "$lib/showcase/showcase_1.webp";
@@ -327,7 +327,7 @@
                     x: 0,
                     y: -75,
                     z: 175,
-                    ease: "power1.out",
+                    ease: "sine.out",
                 });
 
             const textTimeline = gsap.timeline({
@@ -360,7 +360,7 @@
                 scrollTrigger: {
                     trigger: "#stats",
                     start: "top+=3300 center",
-                    end: "top+=5600 center",
+                    end: "top+=5500 center",
                     scrub: true,
                     // markers: true,
                 },
@@ -371,7 +371,7 @@
                 opacity: 0,
                 y: 10,
                 duration: 1,
-                ease: "easeOut",
+                ease: "sine.out",
             });
 
             speakerTimeline.to("#speakers", {
@@ -384,7 +384,7 @@
 
             gsap.to(starVertices, {
                 scrollTrigger: {
-                    trigger: "#hostedBy",
+                    trigger: "#pastThemes",
                     start: "top-=200% bottom",
                     end: "top bottom",
                     scrub: true,
@@ -404,6 +404,37 @@
                         );
                     },
                 },
+            });
+
+            gsap.from("#pastThemes", {
+                scrollTrigger: {
+                    trigger: "#pastThemes",
+                    start: "top bottom",
+                    // markers: true,
+                },
+                duration: 1,
+                opacity: 0,
+                y: 100,
+                ease: "sine.out",
+            });
+
+            gsap.from("#hostedBy", {
+                scrollTrigger: {
+                    trigger: "#hostedBy",
+                    start: "top bottom",
+                    // markers: true,
+                },
+                duration: 0.8,
+                opacity: 0,
+                y: 50,
+                ease: "sine.out",
+            });
+
+            gsap.from("#title", {
+                duration: 0.9,
+                opacity: 0,
+                y: 100,
+                ease: "sine.out",
             });
 
             return () => ctx.revert();
@@ -432,6 +463,7 @@
 <div bind:this={gsapScope}>
     <section
         class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center flex flex-col items-center h-screen w-screen absolute top-0 left-0 z-30"
+        id="title"
     >
         <div class="w-5/6 mx-auto">
             <h1
@@ -638,7 +670,7 @@
         </div>
     </section>
 
-    <section class="mx-4 sm:mx-6 mb-32" id="hostedBy">
+    <section class="mx-4 sm:mx-6 mb-32 relative" id="pastThemes">
         <h3
             class="text-center text-white text-7xl mb-11 font-bold tracking-tight"
         >
@@ -647,7 +679,7 @@
         <div class="flex flex-col lg:flex-row gap-3">
             {#each themes as theme}
                 <a
-                    class="relative w-full group hover:scale-105 transition-all duration-300 ease-in-out"
+                    class="relative w-full group hover:scale-[1.025] transition-all duration-300 ease-in-out"
                     href={theme.videoURL}
                     target="_blank"
                     rel="noreferrer"
@@ -655,7 +687,7 @@
                     <img
                         src={theme.thumbnail}
                         alt="{theme.name} Thumbnail"
-                        class="w-full object-cover h-[26rem] group-hover:saturate-100 saturate-[0.85] transition-all duration-500"
+                        class="w-full object-cover h-[26rem] group-hover:saturate-100 saturate-[0.5] transition-all duration-500"
                     />
                     <div
                         class="absolute w-max flex justify-center items-center flex-col gap-6 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -684,6 +716,7 @@
 
         <div
             class="flex flex-col md:flex-row gap-7 md:gap-32 items-center justify-center"
+            id="hostedBy"
         >
             <img
                 src={branksome}
@@ -696,12 +729,6 @@
                 class="h-24 rounded-md w-auto"
             />
         </div>
-    </section>
-
-    <section
-        class="text-5xl sm:text-7xl tracking-tight font-bold text-center text-white mb-32"
-    >
-        Put Something Here
     </section>
 
     <section class="w-screen h-[90vh] relative select-none">
