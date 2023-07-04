@@ -195,10 +195,8 @@
     onMount(() => {
         // Initializing the globe
         const Globe = new ThreeGlobe({ animateIn: false })
-            .globeImageUrl("//i.imgur.com/5bEEM5o.jpg")
-            .bumpImageUrl(
-                "//unpkg.com/three-globe/example/img/earth-topology.png"
-            )
+            .globeImageUrl("./map.webp")
+            .bumpImageUrl("./earth-topology.webp")
             .atmosphereColor("rgba(82, 167, 220, 1)")
             .atmosphereAltitude(0.12);
 
@@ -209,14 +207,11 @@
         const globeMaterial = Globe.globeMaterial() as THREE.MeshPhongMaterial;
         globeMaterial.bumpScale = 10;
 
-        new THREE.TextureLoader().load(
-            "//unpkg.com/three-globe/example/img/earth-water.png",
-            (texture) => {
-                globeMaterial.specularMap = texture;
-                // globeMaterial.specular = new THREE.Color("grey");
-                // globeMaterial.shininess = 20;
-            }
-        );
+        new THREE.TextureLoader().load("./earth-water.webp", (texture) => {
+            globeMaterial.specularMap = texture;
+            globeMaterial.specular = new THREE.Color("#020263");
+            globeMaterial.shininess = 0;
+        });
 
         // Setup scene
         const scene = new THREE.Scene();
@@ -584,12 +579,14 @@
                         <button
                             on:click={prevSlide}
                             class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                            aria-label="Go to Previous Speaker"
                         >
                             <TiArrowLeft />
                         </button>
                         <button
                             on:click={nextSlide}
                             class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                            aria-label="Go to Next Speaker"
                         >
                             <TiArrowRight />
                         </button>
