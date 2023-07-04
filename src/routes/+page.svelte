@@ -80,7 +80,7 @@
             name: "Edward Snowden",
             title: "Former NSA Consultant & Whistleblower",
             image: edwardSnowden,
-            specialRole: "Criminal Speaker",
+            specialRole: "Famous Speaker",
         },
         {
             name: "Ck Hoffler",
@@ -435,7 +435,7 @@
     >
         <div class="w-5/6 mx-auto">
             <h1
-                class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.35rem] text-white font-bold mb-5 lg:mb-6 tracking-tight"
+                class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.5rem] text-white font-bold mb-5 lg:mb-6 tracking-[-0.03em]"
             >
                 World Affairs Conference
             </h1>
@@ -508,7 +508,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             10k+
                         </dt>
@@ -518,7 +518,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             35+
                         </dt>
@@ -528,7 +528,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-tight"
+                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             80+
                         </dt>
@@ -551,13 +551,13 @@
                     <div class="self-end">
                         <button
                             on:click={prevSlide}
-                            class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                            class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
                         >
                             <TiArrowLeft />
                         </button>
                         <button
                             on:click={nextSlide}
-                            class="h-10 w-10 sm:h-12 sm:w-12 p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                            class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
                         >
                             <TiArrowRight />
                         </button>
@@ -568,7 +568,7 @@
                         class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[160vw] sm:w-[130vw]"
                     >
                         <SwiperContainer
-                            spaceBetween={16}
+                            spaceBetween={20}
                             slidesPerView={3}
                             class="flex gap-6 w-full h-full"
                             loop={true}
@@ -599,7 +599,7 @@
                                     />
 
                                     <div
-                                        class="absolute bottom-0 w-full backdrop-blur-md bg-zinc-800/30 rounded-tr-md h-20 px-3 flex"
+                                        class="absolute bottom-0 w-full backdrop-blur-[8px] bg-zinc-900/30 h-20 px-3 flex"
                                     >
                                         <div class="my-auto">
                                             <h3
@@ -647,7 +647,7 @@
         <div class="flex flex-col lg:flex-row gap-3">
             {#each themes as theme}
                 <a
-                    class="relative w-full rounded-lg overflow-hidden hover:scale-105 transition-all duration-300 ease-in-out"
+                    class="relative w-full group hover:scale-105 transition-all duration-300 ease-in-out"
                     href={theme.videoURL}
                     target="_blank"
                     rel="noreferrer"
@@ -655,17 +655,15 @@
                     <img
                         src={theme.thumbnail}
                         alt="{theme.name} Thumbnail"
-                        class="w-full object-cover h-[26rem]"
+                        class="w-full object-cover h-[26rem] group-hover:saturate-100 saturate-[0.85] transition-all duration-500"
                     />
                     <div
-                        class="absolute w-max flex justify-center items-center flex-col gap-8 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        class="absolute w-max flex justify-center items-center flex-col gap-6 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                     >
-                        <div
-                            class="text-4xl lg:text-5xl font-bold tracking-tight"
-                        >
+                        <div class="text-[2.5rem] font-bold tracking-tight">
                             {theme.name}
                         </div>
-                        <div class="h-20 w-20">
+                        <div class="h-24 w-24">
                             <IoIosPlayCircle />
                         </div>
                         <div class="text-5xl font-bold tracking-tighter">
@@ -714,18 +712,24 @@
             navigation
         >
             {#each showcases as showcase}
-                <SwiperSlide>
+                <SwiperSlide class="relative">
                     <img
                         src={showcase.image}
                         alt={showcase.description}
-                        class="w-full h-full object-cover transition-all"
+                        class="w-full h-full object-cover"
                     />
+                    <div class="absolute bottom-14 left-14 tracking-tight">
+                        <h4 class="text-white font-semibold">
+                            {showcase.title}
+                        </h4>
+                        <p class="text-zinc-300">{showcase.description}</p>
+                    </div>
                 </SwiperSlide>
             {/each}
         </SwiperContainer>
 
         <div class="absolute top-16 left-16 z-50">
-            <h3 class="text-white text-4xl font-semibold tracking-tight">
+            <h3 class="text-white text-5xl font-semibold tracking-tight">
                 World Affairs Conference
             </h3>
         </div>

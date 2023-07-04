@@ -26,11 +26,11 @@
             if (scrollTop < 350) {
                 headerElement.style.position = "absolute";
                 headerElement.style.backgroundColor = "transparent";
-                headerElement.classList.remove("backdrop-blur-lg");
+                headerElement.classList.remove("backdrop-blur-xl");
             } else {
                 headerElement.style.position = "fixed";
-                headerElement.style.backgroundColor = "rgb(0 0 0 / 0.1)";
-                headerElement.classList.add("backdrop-blur-lg");
+                headerElement.style.backgroundColor = "rgb(0 0 0 / 0.3)";
+                headerElement.classList.add("backdrop-blur-xl");
             }
 
             if (scrollTop >= lastScrollTop) {
