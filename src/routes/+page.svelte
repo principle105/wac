@@ -719,11 +719,13 @@
                 src={branksome}
                 alt="Branksome Hall Logo"
                 class="h-24 rounded-md w-auto"
+                width={96}
             />
             <img
                 src={ucc}
                 alt="Upper Canada College Logo"
                 class="h-24 rounded-md w-auto"
+                width={96}
             />
         </div>
     </section>

@@ -88,7 +88,7 @@
     bind:this={headerElement}
 >
     <a href="/" class="hover:brightness-110 transition-all">
-        <img src={logo} alt="logo" class="h-11 sm:h-14" />
+        <img src={logo} alt="logo" class="h-11 sm:h-14" height={44} />
     </a>
     <nav class="flex items-center gap-4 lg:gap-20">
         <ul class="hidden lg:flex gap-16 text-zinc-300" id="navbar">
