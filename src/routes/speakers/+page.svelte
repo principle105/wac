@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>World Affairs Conference | 2023 Speakers</title>
+    <title>World Affairs Conference | Past Speakers</title>
     <meta
         name="description"
         content="North America's largest and Canada's oldest annual student-run current events conference."
@@ -7,5 +7,5 @@
 </svelte:head>
 
 <section class="pt-[8.5rem]">
-    <p class="text-white">2023 Speakers</p>
+    <p class="text-white">Past Speakers</p>
 </section>

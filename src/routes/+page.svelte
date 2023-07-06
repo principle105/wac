@@ -262,7 +262,7 @@
         // Render loop
         const animate = () => {
             renderer.render(scene, camera);
-            Globe.rotateY(-0.0005);
+            Globe.rotateY(-0.0003);
             requestAnimationFrame(animate);
         };
 
@@ -320,7 +320,7 @@
                 .to(camera.position, {
                     duration: 1.25,
                     x: 0,
-                    y: -75,
+                    y: -65,
                     z: 175,
                     ease: "sine.out",
                 });
@@ -573,7 +573,7 @@
                     <h2
                         class="text-center text-3xl sm:text-7xl font-bold text-white tracking-tight"
                     >
-                        2023 Speakers
+                        Past Speakers
                     </h2>
                     <div class="self-end">
                         <button
@@ -654,14 +654,14 @@
                         </SwiperContainer>
                     </div>
                 </div>
-                <a
+                <!-- <a
                     class="font-semibold text-zinc-200 text-center sm:text-lg"
                     href="/speakers"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     View the Rest of Our 2023 Speakers →
-                </a>
+                </a> -->
             </div>
             <canvas bind:this={canvasElement} />
         </div>
@@ -704,9 +704,9 @@
         </div>
     </section>
 
-    <section class="bg-white py-12 px-30 mb-32">
+    <section class="bg-white py-10 px-30 mb-32">
         <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight mb-5"
+            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight mb-4"
         >
             Hosted By
         </h3>

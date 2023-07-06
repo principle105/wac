@@ -3,10 +3,8 @@
 
     // Icons
     import FaEnvelope from "svelte-icons/fa/FaEnvelope.svelte";
-    import FaFacebook from "svelte-icons/fa/FaFacebook.svelte";
     import FaInstagram from "svelte-icons/fa/FaInstagram.svelte";
-    import FaTwitter from "svelte-icons/fa/FaTwitter.svelte";
-    import FaGithub from "svelte-icons/fa/FaGithub.svelte";
+    import FaLinkedin from "svelte-icons/fa/FaLinkedin.svelte";
 
     interface Social {
         name: string;
@@ -21,24 +19,14 @@
             link: "mailto:wac@ucc.on.ca",
         },
         {
-            name: "Facebook",
-            icon: FaFacebook,
-            link: "https://www.facebook.com/worldaffairsconference",
-        },
-        {
             name: "Instagram",
             icon: FaInstagram,
             link: "https://instagram.com/WorldAffairsCon",
         },
         {
-            name: "Twitter",
-            icon: FaTwitter,
-            link: "https://twitter.com/WorldAffairsCon",
-        },
-        {
-            name: "Github",
-            icon: FaGithub,
-            link: "https://github.com/worldaffairsconference/worldaffairs.ucc.on.ca",
+            name: "LinkedIn",
+            icon: FaLinkedin,
+            link: "https://ca.linkedin.com/company/world-affairs-conference",
         },
     ];
 </script>
