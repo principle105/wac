@@ -1,72 +1,82 @@
+<!-- <script lang="ts">
+	import { z } from 'zod';
+
+	import Component from '$lib/Component.svelte';
+	import { docStore } from '$lib/firebase';
+
+	const test = docStore(
+		'test/hi',
+		z.object({ test: z.boolean() }).strict(),
+		z.object({ test: z.boolean().catch(true) })
+	);
+</script>
+
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+<pre><code>{JSON.stringify($test, null, 2)}</code></pre>
+
+<Component />
+<Component />
+<Component />
+<Component /> -->
+
 <script lang="ts">
-    import { onMount } from "svelte";
-    import * as THREE from "three";
-    import ThreeGlobe from "three-globe";
-
-    import gsap from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    import { Navigation, Swiper } from "swiper";
-    import { Swiper as SwiperContainer, SwiperSlide } from "swiper/svelte";
     import "swiper/css";
     import "swiper/css/navigation";
 
-    // Importing the speaker images
-    import mlk from "$lib/speakers/mlk.webp";
-    import edwardSnowden from "$lib/speakers/edward_snowden.webp";
-    import ckHoffler from "$lib/speakers/ck_hoffler.webp";
-    import scottGalloway from "$lib/speakers/scott_galloway.webp";
-    import marcGarneau from "$lib/speakers/marc_garneau.webp";
-    import mehdiHasan from "$lib/speakers/mehdi_hasan.webp";
-    import johnStackhouse from "$lib/speakers/john_stackhouse.webp";
-    import davidOwen from "$lib/speakers/david_owen.webp";
-    import geoffreyHinton from "$lib/speakers/geoffrey_hinton.webp";
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { onMount } from "svelte";
 
-    // Importing showcase images
-    import showcase1 from "$lib/showcase/showcase_1.webp";
-    import showcase2 from "$lib/showcase/showcase_2.webp";
-    import showcase3 from "$lib/showcase/showcase_3.webp";
-    import showcase4 from "$lib/showcase/showcase_4.webp";
-    import showcase5 from "$lib/showcase/showcase_5.webp";
-    import showcase6 from "$lib/showcase/showcase_6.webp";
-    import showcase7 from "$lib/showcase/showcase_7.webp";
-
-    // Importing video thumbnails
-    import thumbnail2023 from "$lib/thumbnails/2023.webp";
-    import thumbnail2020 from "$lib/thumbnails/2020.webp";
-    import thumbnail2019 from "$lib/thumbnails/2019.webp";
-
-    // Importing the school images
-    import ucc from "$lib/logos/ucc.webp";
-    import branksome from "$lib/logos/branksome.webp";
-
-    // Icons
+    import IoIosPlayCircle from "svelte-icons/io/IoIosPlayCircle.svelte";
     import TiArrowLeft from "svelte-icons/ti/TiArrowLeft.svelte";
     import TiArrowRight from "svelte-icons/ti/TiArrowRight.svelte";
-    import IoIosPlayCircle from "svelte-icons/io/IoIosPlayCircle.svelte";
+    import type { Swiper } from "swiper";
+    import { Swiper as SwiperContainer, SwiperSlide } from "swiper/svelte";
+    import * as THREE from "three";
+    import ThreeGlobe from "three-globe";
+
+    import { browser } from "$app/environment";
+
+    import ckHoffler from "$lib/images/speakers/ck_hoffler.webp";
+    import davidOwen from "$lib/images/speakers/david_owen.webp";
+    import edwardSnowden from "$lib/images/speakers/edward_snowden.webp";
+    import geoffreyHinton from "$lib/images/speakers/geoffrey_hinton.webp";
+    import johnStackhouse from "$lib/images/speakers/john_stackhouse.webp";
+    import marcGarneau from "$lib/images/speakers/marc_garneau.webp";
+    import mehdiHasan from "$lib/images/speakers/mehdi_hasan.webp";
+    import mlk from "$lib/images/speakers/mlk.webp";
+    import scottGalloway from "$lib/images/speakers/scott_galloway.webp";
+    import trailerThumbnail from "$lib/images/thumbnails/trailer_thumbnail.png";
 
     // Constants
-    const SPREAD: number = 700; // How spread out the stars are
-    const TOTAL_STARS: number = 1500; // How many stars there are
+    const TOTAL_STARS = 600; // How many stars there are
+    const ATMOSPHERE_RADIUS = 0.26; // How thick the atmosphere is
+    const ATMOSPHERE_INTENSITY = 0.8; // How intense the atmosphere is
 
-    interface Showcase {
-        image: string;
-        title: string;
-        description: string;
-    }
+    const fragmentShader = `
+uniform vec3 color;
+uniform float coefficient;
+uniform float power;
+varying vec3 vVertexNormal;
+varying vec3 vVertexWorldPosition;
+void main() {
+  vec3 worldCameraToVertex = vVertexWorldPosition - cameraPosition;
+  vec3 viewCameraToVertex	= (viewMatrix * vec4(worldCameraToVertex, 500.0)).xyz;
+  viewCameraToVertex = normalize(viewCameraToVertex) * 6.0;
+  float intensity	= pow(
+    coefficient + dot(vVertexNormal, viewCameraToVertex),
+    power
+  );
+  gl_FragColor = vec4(color, intensity);
+}`;
 
     interface Speaker {
         name: string;
         title: string;
         image: string;
         specialRole?: string;
-    }
-
-    interface Theme {
-        name: string;
-        year: number;
-        thumbnail: string;
-        videoURL: string;
     }
 
     const speakers: Speaker[] = [
@@ -119,76 +129,10 @@
         },
     ];
 
-    let showcases: Showcase[] = [
-        {
-            image: showcase1,
-            title: "The Future of Space Exploration",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase2,
-            title: "The Future of the Internet",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase3,
-            title: "The Future of Democracy",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase4,
-            title: "The Future of Criminality",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase5,
-            title: "The Future of Business",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase6,
-            title: "The Future of Artificial Intelligence",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-        {
-            image: showcase7,
-            title: "The Future of Artificial Intelligence",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quisquam.",
-        },
-    ];
-
-    let themes: Theme[] = [
-        {
-            name: "Hybrid Thinking",
-            year: 2023,
-            thumbnail: thumbnail2023,
-            videoURL: "https://www.youtube.com/watch?v=svfMVfYeOd8",
-        },
-        {
-            name: "World Gone",
-            year: 2020,
-            thumbnail: thumbnail2020,
-            videoURL: "https://www.youtube.com/watch?v=KveYOMD7fp0",
-        },
-        {
-            name: "20/20 Vision",
-            year: 2019,
-            thumbnail: thumbnail2019,
-            videoURL: "https://www.youtube.com/watch?v=GUycwPz_Kds",
-        },
-    ];
-
     let canvasElement: HTMLCanvasElement;
     let gsapScope: Element;
 
-    if (typeof window !== "undefined") {
+    if (browser) {
         gsap.registerPlugin(ScrollTrigger);
     }
 
@@ -197,8 +141,8 @@
         const Globe = new ThreeGlobe({ animateIn: false })
             .globeImageUrl("./map.webp")
             .bumpImageUrl("./earth-topology.webp")
-            .atmosphereColor("rgba(82, 167, 220, 1)")
-            .atmosphereAltitude(0.12);
+            .atmosphereAltitude(ATMOSPHERE_RADIUS)
+            .atmosphereColor("#bcd2e3");
 
         // Rotate the globe on the diagonal axis
         Globe.rotateY(Math.PI / 2);
@@ -206,6 +150,8 @@
         // Custom globe material
         const globeMaterial = Globe.globeMaterial() as THREE.MeshPhongMaterial;
         globeMaterial.bumpScale = 10;
+        globeMaterial.toneMapped = false;
+        globeMaterial.emissiveIntensity = -100;
 
         new THREE.TextureLoader().load("./earth-water.webp", (texture) => {
             globeMaterial.specularMap = texture;
@@ -239,12 +185,12 @@
         const starsGeometry = new THREE.BufferGeometry();
         const starMaterial = new THREE.PointsMaterial({ color: 0xffffff });
 
-        const starVertices: Array<number> = [];
+        const starVertices: number[] = [];
 
         for (let i = 0; i < TOTAL_STARS; i++) {
-            const x = THREE.MathUtils.randFloatSpread(SPREAD);
-            const y = THREE.MathUtils.randFloatSpread(SPREAD);
-            const z = THREE.MathUtils.randFloatSpread(SPREAD);
+            const x = THREE.MathUtils.randFloatSpread(500);
+            const y = THREE.MathUtils.randFloatSpread(500);
+            const z = THREE.MathUtils.randFloatSpread(600);
 
             starVertices.push(x, y, z);
         }
@@ -258,12 +204,36 @@
         scene.add(stars);
 
         let renderer: THREE.WebGLRenderer;
+        let foundAtmosphere = false;
 
         // Render loop
         const animate = () => {
             renderer.render(scene, camera);
-            Globe.rotateY(-0.0003);
+            Globe.rotateY(-0.00035);
             requestAnimationFrame(animate);
+
+            // TODO: Find a better way to do this
+
+            if (!foundAtmosphere) {
+                const atmosphere = scene.getObjectByProperty(
+                    "__globeObjType",
+                    "atmosphere"
+                ) as THREE.Mesh;
+
+                if (!atmosphere?.material) return;
+
+                foundAtmosphere = true;
+
+                (atmosphere.material as THREE.ShaderMaterial).fragmentShader =
+                    fragmentShader;
+
+                (atmosphere.material as THREE.ShaderMaterial).side =
+                    THREE.DoubleSide;
+
+                // @ts-ignore
+                atmosphere.material.uniforms["coefficient"].value =
+                    ATMOSPHERE_INTENSITY;
+            }
         };
 
         // Handles resizing the window
@@ -279,8 +249,12 @@
                 canvas: canvasElement,
                 alpha: true,
             });
-            renderer.setPixelRatio(window.devicePixelRatio);
+
+            renderer.setPixelRatio(
+                window.devicePixelRatio ? window.devicePixelRatio : 1
+            );
             renderer.setSize(window.innerWidth, window.innerHeight);
+
             animate();
         };
 
@@ -299,12 +273,26 @@
                     // markers: true,
                 },
             })
-                .to(camera.position, {
-                    duration: 1,
-                    y: 110,
-                    z: 60,
-                    ease: "power2.out",
-                })
+                .to(
+                    camera.position,
+                    {
+                        duration: 1,
+                        y: 110,
+                        z: 60,
+                        ease: "power2.out",
+                    },
+                    0
+                )
+                // .to(
+                // 	camera.rotation,
+                // 	{
+                // 		duration: 1,
+                // 		x: -0.2,
+                // 		z: 0.2,
+                // 		ease: "power2.out"
+                // 	},
+                // 	0
+                // )
                 // Make the globe zoom in and position to the left side of the screen
                 .to(camera.position, {
                     duration: 0.75,
@@ -355,7 +343,7 @@
                 scrollTrigger: {
                     trigger: "#stats",
                     start: "top+=3300 center",
-                    end: "top+=5500 center",
+                    end: "top+=5400 center",
                     scrub: true,
                     // markers: true,
                 },
@@ -379,7 +367,7 @@
 
             gsap.to(starVertices, {
                 scrollTrigger: {
-                    trigger: "#pastThemes",
+                    trigger: "#video",
                     start: "top-=200% bottom",
                     end: "top bottom",
                     scrub: true,
@@ -399,30 +387,6 @@
                         );
                     },
                 },
-            });
-
-            gsap.from("#pastThemes", {
-                scrollTrigger: {
-                    trigger: "#pastThemes",
-                    start: "top bottom",
-                    // markers: true,
-                },
-                duration: 1,
-                opacity: 0,
-                y: 100,
-                ease: "sine.out",
-            });
-
-            gsap.from("#hostedBy", {
-                scrollTrigger: {
-                    trigger: "#hostedBy",
-                    start: "top bottom",
-                    // markers: true,
-                },
-                duration: 0.8,
-                opacity: 0,
-                y: 50,
-                ease: "sine.out",
             });
 
             gsap.from("#title", {
@@ -462,7 +426,7 @@
     >
         <div class="w-5/6 mx-auto">
             <h1
-                class="text-[2.9rem] leading-none sm:text-6xl lg:text-[5.5rem] text-white font-bold mb-5 lg:mb-6 tracking-[-0.03em]"
+                class="text-[3rem] leading-none sm:text-6xl lg:text-[5.5rem] text-white font-bold mb-5 lg:mb-6 tracking-[-0.03em]"
             >
                 World Affairs Conference
             </h1>
@@ -514,7 +478,7 @@
     </section>
 
     <section
-        class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center relative h-screen"
+        class="pt-[10rem] md:pt-44 lg:pt-[13.5rem] text-center relative h-screen bg-zinc-900"
         id="home"
     >
         <div
@@ -535,7 +499,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
+                            class="mb-2 text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             10k+
                         </dt>
@@ -545,7 +509,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
+                            class="mb-2 text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             35+
                         </dt>
@@ -555,7 +519,7 @@
                         class="flex flex-col items-center justify-center mx-auto"
                     >
                         <dt
-                            class="mb-2 text-5xl sm:text-6xl md:text-[5.4rem] font-bold tracking-tight"
+                            class="mb-2 text-6xl md:text-[5.4rem] font-bold tracking-tight"
                         >
                             80+
                         </dt>
@@ -564,35 +528,16 @@
                 </dl>
             </div>
             <div
-                class="absolute w-full h-screen flex text-left gap-10 sm:gap-6 flex-col py-16"
+                class="absolute w-full h-screen text-left py-16 flex flex-col"
                 id="speakers"
             >
-                <div
-                    class="flex justify-between sm:justify-normal sm:flex-col gap-6 mx-6 sm:mx-10 md:mx-20"
+                <h2
+                    class="text-center text-[2.75rem] sm:text-7xl font-bold text-white tracking-tight mb-12"
                 >
-                    <h2
-                        class="text-center text-3xl sm:text-7xl font-bold text-white tracking-tight"
-                    >
-                        Past Speakers
-                    </h2>
-                    <div class="self-end">
-                        <button
-                            on:click={prevSlide}
-                            class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
-                            aria-label="Go to Previous Speaker"
-                        >
-                            <TiArrowLeft />
-                        </button>
-                        <button
-                            on:click={nextSlide}
-                            class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
-                            aria-label="Go to Next Speaker"
-                        >
-                            <TiArrowRight />
-                        </button>
-                    </div>
-                </div>
-                <div class="grow overflow-hidden relative">
+                    Past Speakers
+                </h2>
+
+                <div class="grow overflow-hidden relative mb-6">
                     <div
                         class="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[160vw] sm:w-[130vw]"
                     >
@@ -624,7 +569,7 @@
                                     <img
                                         src={speaker.image}
                                         alt="{speaker.name}'s Headshot"
-                                        class="w-full rounded-lg h-full object-cover transition-all"
+                                        class="w-full h-full object-cover transition-all"
                                     />
 
                                     <div
@@ -654,115 +599,52 @@
                         </SwiperContainer>
                     </div>
                 </div>
-                <!-- <a
-                    class="font-semibold text-zinc-200 text-center sm:text-lg"
-                    href="/speakers"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View the Rest of Our 2023 Speakers →
-                </a> -->
+                <div class="self-center">
+                    <button
+                        on:click={prevSlide}
+                        class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                        aria-label="Go to Previous Speaker"
+                    >
+                        <TiArrowLeft />
+                    </button>
+                    <button
+                        on:click={nextSlide}
+                        class="h-10 w-10 sm:h-[3.15rem] sm:w-[3.15rem] p-1.5 rounded-full bg-black text-white hover:bg-white hover:text-black transition-colors duration-150 ease-in"
+                        aria-label="Go to Next Speaker"
+                    >
+                        <TiArrowRight />
+                    </button>
+                </div>
             </div>
             <canvas bind:this={canvasElement} />
         </div>
     </section>
 
-    <section class="mx-4 sm:mx-6 mb-32 relative" id="pastThemes">
-        <h3
-            class="text-center text-white text-7xl mb-11 font-bold tracking-tight"
+    <section class="h-screen w-screen mt-5" id="video">
+        <h2
+            class="text-center text-4xl sm:text-5xl text-white tracking-tighter mb-9 sm:mb-12"
         >
-            Past Themes
-        </h3>
-        <div class="flex flex-col lg:flex-row gap-3">
-            {#each themes as theme}
-                <a
-                    class="relative w-full group hover:scale-[1.025] transition-all duration-300 ease-in-out"
-                    href={theme.videoURL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img
-                        src={theme.thumbnail}
-                        alt="{theme.name} Thumbnail"
-                        class="w-full object-cover h-[26rem] group-hover:saturate-100 saturate-[0.5] transition-all duration-500"
-                    />
-                    <div
-                        class="absolute w-max flex justify-center items-center flex-col gap-6 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                    >
-                        <div class="text-[2.5rem] font-bold tracking-tight">
-                            {theme.name}
-                        </div>
-                        <div class="h-24 w-24">
-                            <IoIosPlayCircle />
-                        </div>
-                        <div class="text-5xl font-bold tracking-tighter">
-                            {theme.year}
-                        </div>
-                    </div>
-                </a>
-            {/each}
-        </div>
-    </section>
-
-    <section class="bg-white py-10 px-30 mb-32">
-        <h3
-            class="text-3xl md:text-4xl font-semibold uppercase text-center tracking-tight mb-4"
-        >
-            Hosted By
-        </h3>
-
-        <div
-            class="flex flex-col md:flex-row gap-7 md:gap-32 items-center justify-center"
-            id="hostedBy"
-        >
+            WAC 2023
+        </h2>
+        <button class="relative w-full sm:w-5/6 h-4/5 m-auto block">
             <img
-                src={branksome}
-                alt="Branksome Hall Logo"
-                class="h-24 rounded-md w-auto"
-                width={96}
+                src={trailerThumbnail}
+                alt="Trailer video thumbnail"
+                class="w-full h-full object-cover object-center sm:rounded-2xl sm:shadow-md"
             />
-            <img
-                src={ucc}
-                alt="Upper Canada College Logo"
-                class="h-24 rounded-md w-auto"
-                width={96}
-            />
-        </div>
-    </section>
 
-    <section class="w-screen h-[90vh] relative select-none">
-        <SwiperContainer
-            class="w-full h-full"
-            loop={true}
-            modules={[Navigation]}
-            navigation
-        >
-            {#each showcases as showcase}
-                <SwiperSlide class="relative">
-                    <img
-                        src={showcase.image}
-                        alt={showcase.description}
-                        class="w-full h-full object-cover"
-                    />
-                    <div class="absolute bottom-14 left-14 tracking-tight">
-                        <h4 class="text-white font-semibold">
-                            {showcase.title}
-                        </h4>
-                        <p class="text-zinc-300">{showcase.description}</p>
-                    </div>
-                </SwiperSlide>
-            {/each}
-        </SwiperContainer>
-
-        <div class="absolute top-16 left-16 z-50">
-            <h3 class="text-white text-5xl font-semibold tracking-tight">
-                World Affairs Conference
-            </h3>
-        </div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+                <div class="h-24 w-24 text-white">
+                    <IoIosPlayCircle />
+                </div>
+            </div>
+        </button>
     </section>
 
     <section
-        class="w-screen bg-zinc-900 px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
+        class="w-screen px-12 md:px-28 py-20 flex justify-between lg:items-center flex-col lg:flex-row gap-7"
         id="action"
     >
         <h3 class="uppercase">

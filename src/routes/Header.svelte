@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { page } from "$app/stores";
     import gsap, { Expo } from "gsap";
+    import { onMount } from "svelte";
 
-    import logo from "$lib/logos/wac_medium.webp";
+    import { page } from "$app/stores";
+    import logo from "$lib/images/logos/wac_medium.webp";
 
     interface Route {
         name: string;
